@@ -1,17 +1,15 @@
 import {
-    AppShell,
+    Box,
     MantineProvider,
-    useMantineTheme,
 } from '@mantine/core'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
 import { Sidebar } from '../components'
 
+// TODO: find a good font
 const App = (props: AppProps) => {
     const { Component, pageProps } = props
-
-    const theme = useMantineTheme()
 
     return (
         <>
@@ -27,23 +25,20 @@ const App = (props: AppProps) => {
             <MantineProvider
                 theme={{
                     colorScheme: 'light',
-                    fontFamily: 'montserrat',
                 }}
                 withGlobalStyles={true}
                 withNormalizeCSS={true}
             >
-                <AppShell
-                    asideOffsetBreakpoint="sm"
-                    navbar={<Sidebar />}
-                    navbarOffsetBreakpoint="sm"
-                    styles={{
-                        main: {
-                            background: theme.colors.gray[0],
-                        },
-                    }}
+                <Box
+                    sx={(theme) => ({
+                        backgroundColor: theme.colors.gray[0],
+                        display: 'grid',
+                        gridTemplateColumns: 'auto 1fr'
+                    })}
                 >
+                    <Sidebar />
                     <Component {...pageProps} />
-                </AppShell>
+                </Box>
             </MantineProvider>
         </>
     )
