@@ -11,21 +11,15 @@ import {
     IconPencil,
     IconTrash,
 } from '@tabler/icons-react'
+import { collection } from 'firebase/firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
-const users = [
-    {
-        firstName: 'John',
-        id: '123',
-        lastName: 'Doe',
-    },
-    {
-        firstName: 'Jane',
-        id: '11',
-        lastName: 'Doe',
-    },
-]
+import { firebase } from '../../shared/firebase'
 
 export const Employees = () => {
+    // TODO: how to type this cleanly
+    const [value, loading, error] = useCollection(collection(firebase, 'employees'))
+
     return (
         <Stack>
             <Paper
@@ -46,11 +40,10 @@ export const Employees = () => {
                     padding: theme.spacing.md,
                 })}
             >
-                {users.map((user) => {
+                {value?.docs.map((user) => {
                     return (
-                        <Paper>
+                        <Paper key={user.id}>
                             <Group
-                                key={user.id}
                                 position="apart"
                                 sx={(theme) => ({
                                     padding: theme.spacing.sm,

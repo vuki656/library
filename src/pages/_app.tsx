@@ -7,7 +7,7 @@ import Head from 'next/head'
 
 import { Sidebar } from '../components'
 
-// TODO: find a good font
+// TODO: find a good font, this ?? https://github.com/mantinedev/ui.mantine.dev/blob/4202b446b7bfbdabc49106e496d4d0c4b31e0c08/components/ActionsGrid/ActionsGrid.tsx#L32
 const App = (props: AppProps) => {
     const { Component, pageProps } = props
 
@@ -33,7 +33,7 @@ const App = (props: AppProps) => {
                     sx={(theme) => ({
                         backgroundColor: theme.colors.gray[0],
                         display: 'grid',
-                        gridTemplateColumns: 'auto 1fr'
+                        gridTemplateColumns: 'auto 1fr',
                     })}
                 >
                     <Sidebar />
