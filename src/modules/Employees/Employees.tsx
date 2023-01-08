@@ -1,5 +1,7 @@
 export const Employees = () => {
     return (
-        <p>emp</p>
+        <p>
+            emp
+        </p>
     )
 }

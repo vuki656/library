@@ -6,10 +6,7 @@ import {
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
-import {
-    Header,
-    Sidebar,
-} from '../components'
+import { Sidebar } from '../components'
 
 const App = (props: AppProps) => {
     const { Component, pageProps } = props
@@ -37,7 +34,6 @@ const App = (props: AppProps) => {
             >
                 <AppShell
                     asideOffsetBreakpoint="sm"
-                    header={<Header />}
                     navbar={<Sidebar />}
                     navbarOffsetBreakpoint="sm"
                     styles={{

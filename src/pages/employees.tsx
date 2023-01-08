@@ -1,4 +1,4 @@
-import { Employees } from "../modules"
+import { Employees } from '../modules'
 
 const EmployeesPage = () => {
     return (
