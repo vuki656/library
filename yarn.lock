@@ -788,6 +788,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tabler/icons-react@npm:2.0.0-alpha2":
+  version: 2.0.0-alpha2
+  resolution: "@tabler/icons-react@npm:2.0.0-alpha2"
+  dependencies:
+    "@tabler/icons": 2.0.0-alpha2
+  peerDependencies:
+    prop-types: ^15.7.2
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+  checksum: 5a9a27328148cb88c15f493c66533978c79298189d1e0b89521b38748fa49d312f7efef17e6b8e7b03bebedad4c9a0c4ed03aed70284a50e8944e3c4b8e60ef3
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:2.0.0-alpha2":
+  version: 2.0.0-alpha2
+  resolution: "@tabler/icons@npm:2.0.0-alpha2"
+  dependencies:
+    "@tabler/icons": 2.0.0-alpha2
+  checksum: 2952f5316ee9bab9cb2a0cf0c251621a3fd3cbf000e9d57f846d630d17a7d7d7cf98155309e8c0ddeb5ec88ddb5ac78c01b95c46ee919ae8d72c299081c5b1ee
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:^7.1.1":
   version: 7.2.0
   resolution: "@types/glob@npm:7.2.0"
@@ -3195,6 +3216,7 @@ __metadata:
     "@mantine/hooks": ^5.10.0
     "@mantine/next": ^5.10.0
     "@rimac-technology/style-guide": ^1.4.5
+    "@tabler/icons-react": 2.0.0-alpha2
     "@types/node": 18.11.18
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.10

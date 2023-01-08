@@ -9,4 +9,7 @@ module.exports = {
         project: "./tsconfig.json",
     },
     ignorePatterns: ["node_modules", "public", "dist", ".eslintrc.js", "next.config.js"],
+    rules: {
+        '@next/next/google-font-display': 'off'
+    }
 }
