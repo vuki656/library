@@ -1,9 +1,9 @@
-const Employees = () => {
+import { Employees } from "../modules"
+
+const EmployeesPage = () => {
     return (
-        <p>
-            Employees
-        </p>
+        <Employees />
     )
 }
 
-export default Employees
+export default EmployeesPage

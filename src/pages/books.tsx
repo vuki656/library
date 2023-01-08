@@ -1,4 +1,4 @@
-const Books = () => {
+const BooksPage = () => {
     return (
         <p>
             Books
@@ -6,4 +6,4 @@ const Books = () => {
     )
 }
 
-export default Books
+export default BooksPage
