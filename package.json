@@ -15,6 +15,7 @@
         "@mantine/core": "^5.10.0",
         "@mantine/hooks": "^5.10.0",
         "@mantine/next": "^5.10.0",
+        "@mantine/notifications": "^5.10.0",
         "@tabler/icons-react": "2.0.0-alpha2",
         "dayjs": "^1.11.7",
         "firebase": "^9.15.0",

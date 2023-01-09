@@ -14,11 +14,13 @@ import {
 import { collection } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
-import { firebase } from '../../shared/firebase'
+import { database } from '../../shared/utils'
+
+import { EmployeeCreateDialog } from './EmployeeCreateDialog'
 
 export const Employees = () => {
     // TODO: how to type this cleanly
-    const [value, loading, error] = useCollection(collection(firebase, 'employees'))
+    const [value, loading, error] = useCollection(collection(database, 'employees'))
 
     return (
         <Stack>
@@ -29,10 +31,11 @@ export const Employees = () => {
                     padding: theme.spacing.md,
                 })}
             >
-                <Group>
+                <Group position="apart">
                     <Title order={3}>
                         Employees
                     </Title>
+                    <EmployeeCreateDialog />
                 </Group>
             </Paper>
             <Stack

@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
 const app = initializeApp({
@@ -10,4 +11,9 @@ const app = initializeApp({
     storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
 })
 
-export const firebase = getFirestore(app)
+export const database = getFirestore(app)
+export const firebaseAuth = getAuth()
+
+export enum COLLECTIONS {
+    employees = 'employees'
+}
