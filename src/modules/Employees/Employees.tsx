@@ -11,16 +11,23 @@ import {
     IconPencil,
     IconTrash,
 } from '@tabler/icons-react'
-import { collection } from 'firebase/firestore'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { query } from 'firebase/firestore'
+import { useFirestoreCollectionData } from 'reactfire'
 
-import { database } from '../../shared/utils'
+import { COLLECTIONS } from '../../shared/utils'
 
 import { EmployeeCreateDialog } from './EmployeeCreateDialog'
+import type { EmployeeType } from './Employees.types'
 
 export const Employees = () => {
-    // TODO: how to type this cleanly
-    const [value, loading, error] = useCollection(collection(database, 'employees'))
+    const employeesQuery = query(COLLECTIONS.employees)
+
+    // TODO: this can't be typed normally, it's retarded, need to use converter...
+    const { data, status } = useFirestoreCollectionData<EmployeeType>(employeesQuery, {
+        initialData: [],
+    })
+
+    console.log(data)
 
     return (
         <Stack>
@@ -43,7 +50,7 @@ export const Employees = () => {
                     padding: theme.spacing.md,
                 })}
             >
-                {value?.docs.map((user) => {
+                {data.map((user) => {
                     return (
                         <Paper key={user.id}>
                             <Group

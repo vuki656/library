@@ -8,29 +8,27 @@ import {
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons-react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import {
     doc,
     setDoc,
 } from 'firebase/firestore'
 import { useState } from 'react'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { useForm } from 'react-hook-form'
 
 import {
-    COLLECTIONS,
+    auth,
+    COLLECTION_NAMES,
     database,
     extractFormFieldErrors,
-    firebaseAuth,
 } from '../../../shared/utils'
 
 import type { EmployeeCreateFormValue } from './EmployeeCreateDialog.types'
 import { employeeValidation } from './EmployeeCreateDialog.validation'
 
 export const EmployeeCreateDialog = () => {
-    const [isOpen, setIsOpen] = useDisclosure(true)
+    const [isOpen, setIsOpen] = useDisclosure(false)
     const [loading, setLoading] = useState(false)
-
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(firebaseAuth)
 
     const { formState, handleSubmit, register } = useForm<EmployeeCreateFormValue>({
         defaultValues: {
@@ -46,7 +44,7 @@ export const EmployeeCreateDialog = () => {
     const onSubmit = async (formValue: EmployeeCreateFormValue) => {
         setLoading(true)
 
-        await createUserWithEmailAndPassword(formValue.email, formValue.password)
+        await createUserWithEmailAndPassword(auth, formValue.email, formValue.password)
             .then(async (response) => {
                 if (!response) {
                     throw new Error('No response after creating user')
@@ -54,13 +52,14 @@ export const EmployeeCreateDialog = () => {
 
                 const reference = doc(
                     database,
-                    COLLECTIONS.employees,
+                    COLLECTION_NAMES.employees,
                     response.user.uid
                 )
 
                 await setDoc(reference, {
                     email: formValue.email,
                     firstName: formValue.firstName,
+                    id: response.user.uid,
                     lastName: formValue.lastName,
                 })
 
