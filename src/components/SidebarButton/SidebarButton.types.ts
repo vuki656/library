@@ -5,4 +5,5 @@ export type SidebarButtonProps = {
     color: MantineColor
     icon: ReactElement
     name: string
+    onClick?(): void
 }

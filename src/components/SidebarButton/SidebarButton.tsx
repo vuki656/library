@@ -13,10 +13,12 @@ export const SidebarButton = (props: SidebarButtonProps) => {
         color,
         icon,
         name,
+        ...other
     } = props
 
     return (
         <UnstyledButton
+            {...other}
             sx={(theme) => ({
                 '&:hover': {
                     backgroundColor: theme.colors.gray[1],

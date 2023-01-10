@@ -1,9 +1,9 @@
-const Home = () => {
+import { Login } from '../modules'
+
+const LoginPage = () => {
     return (
-        <p>
-            Default page
-        </p>
+        <Login />
     )
 }
 
-export default Home
+export default LoginPage
