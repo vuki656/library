@@ -39,6 +39,7 @@ export const Login = () => {
     const onSubmit = (formValue: LoginFormValueType) => {
         signInWithEmailAndPassword(formValue.email, formValue.password)
             .then(() => {
+                // TODO: works without valid creds
                 void router.push('/employees')
             })
             .catch((error: unknown) => {

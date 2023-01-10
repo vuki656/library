@@ -27,10 +27,10 @@ const App = (props: AppProps) => {
     const [user, loading] = useAuthState(auth)
 
     useEffect(() => {
-        if (!user) {
+        if (!user && !loading) {
             void router.push('/')
         }
-    }, [])
+    }, [loading])
 
     return (
         <>
@@ -47,6 +47,11 @@ const App = (props: AppProps) => {
                 theme={{
                     colorScheme: 'light',
                     components: {
+                        Divider: {
+                            defaultProps: {
+                                color: theme.colors.gray[2],
+                            },
+                        },
                         Modal: {
                             defaultProps: {
                                 centered: true,

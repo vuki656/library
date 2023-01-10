@@ -3,4 +3,5 @@ export type EmployeeType = {
     firstName: string
     id: string
     lastName: string
+    photoURL: string
 }

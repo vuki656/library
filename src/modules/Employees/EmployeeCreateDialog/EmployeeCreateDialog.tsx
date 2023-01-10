@@ -12,7 +12,10 @@ import {
     doc,
     setDoc,
 } from 'firebase/firestore'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import {
+    useCreateUserWithEmailAndPassword,
+    useUpdateProfile,
+} from 'react-firebase-hooks/auth'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -28,7 +31,8 @@ import { employeeValidation } from './EmployeeCreateDialog.validation'
 export const EmployeeCreateDialog = () => {
     const [isOpen, setIsOpen] = useDisclosure(false)
 
-    const [createUserWithEmailAndPassword,, loading] = useCreateUserWithEmailAndPassword(auth)
+    const [createUserWithEmailAndPassword,, createLoading] = useCreateUserWithEmailAndPassword(auth)
+    const [updateProfile, updateLoading] = useUpdateProfile(auth)
 
     const {
         formState,
@@ -46,6 +50,8 @@ export const EmployeeCreateDialog = () => {
                     throw new Error('No response after creating user')
                 }
 
+                const photoURL = `https://i.pravatar.cc/300?u=${response.user.uid}`
+
                 const reference = doc(
                     database,
                     COLLECTION_NAMES.employees,
@@ -57,6 +63,12 @@ export const EmployeeCreateDialog = () => {
                     firstName: formValue.firstName,
                     id: response.user.uid,
                     lastName: formValue.lastName,
+                    photoURL,
+                })
+
+                await updateProfile({
+                    displayName: `${formValue.firstName} ${formValue.lastName}`,
+                    photoURL,
                 })
 
                 setIsOpen.close()
@@ -134,7 +146,7 @@ export const EmployeeCreateDialog = () => {
                             withAsterisk={true}
                         />
                         <Button
-                            loading={loading}
+                            loading={createLoading || updateLoading}
                             type="submit"
                         >
                             Create

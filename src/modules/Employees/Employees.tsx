@@ -66,7 +66,7 @@ export const Employees = () => {
                                     <Avatar
                                         radius="md"
                                         size={40}
-                                        src={`https://i.pravatar.cc/300?u=${user.id}`}
+                                        src={user.photoURL}
                                     />
                                     <Text>
                                         {user.firstName}
