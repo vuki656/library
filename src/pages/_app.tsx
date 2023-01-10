@@ -1,4 +1,5 @@
 import {
+    AppShell,
     Box,
     MantineProvider,
     useMantineTheme,
@@ -44,17 +45,18 @@ const App = (props: AppProps) => {
                 withNormalizeCSS={true}
             >
                 <NotificationsProvider>
-                    <Box
-                        sx={{
-                            backgroundColor: theme.colors.gray[0],
-                            display: 'grid',
-                            gridTemplateColumns: 'auto 1fr',
-                            overflow: 'hidden'
+                    <AppShell
+                        fixed={false}
+                        navbar={<Sidebar />}
+                        styles={{
+                            main: {
+                                padding: 0,
+                                backgroundColor: theme.colors.gray[0],
+                            },
                         }}
                     >
-                        <Sidebar />
                         <Component {...pageProps} />
-                    </Box>
+                    </AppShell>
                 </NotificationsProvider>
             </MantineProvider>
         </>
