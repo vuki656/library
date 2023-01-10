@@ -30,7 +30,12 @@ export const EmployeeCreateDialog = () => {
     const [isOpen, setIsOpen] = useDisclosure(false)
     const [loading, setLoading] = useState(false)
 
-    const { formState, handleSubmit, register } = useForm<EmployeeCreateFormValue>({
+    const { 
+        formState,
+        handleSubmit,
+        register,
+        reset,
+    } = useForm<EmployeeCreateFormValue>({
         defaultValues: {
             email: '',
             firstName: '',
@@ -66,8 +71,18 @@ export const EmployeeCreateDialog = () => {
                 setIsOpen.close()
 
                 setLoading(false)
+
+                reset()
+
+                showNotification({
+                    color: 'green',
+                    message: 'User created successfully',
+                    title: 'Success',
+                })
             })
             .catch(() => {
+                setLoading(false)
+
                 showNotification({
                     color: 'red',
                     message: 'Failed to create an employee',
@@ -82,7 +97,7 @@ export const EmployeeCreateDialog = () => {
                 leftIcon={<IconPlus size={20} />}
                 onClick={setIsOpen.open}
             >
-                Settings
+                Create
             </Button>
             <Modal
                 onClose={setIsOpen.close}

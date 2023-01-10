@@ -22,8 +22,8 @@ import type { EmployeeType } from './Employees.types'
 export const Employees = () => {
     const employeesQuery = query(COLLECTIONS.employees)
 
-    // TODO: this can't be typed normally, it's retarded, need to use converter...
-    const { data, status } = useFirestoreCollectionData<EmployeeType>(employeesQuery, {
+    // FIXME: query type, prob make a wrapper and cast
+    const { data, status } = useFirestoreCollectionData<EmployeeType>(employeesQuery as any, {
         initialData: [],
     })
 
