@@ -33,7 +33,7 @@ export const SidebarButton = (props: SidebarButtonProps) => {
                     variant="light"
                 >
                     {cloneElement(icon, {
-                        size: 20,
+                        size: 16,
                     })}
                 </ThemeIcon>
                 <Text

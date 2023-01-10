@@ -1,16 +1,13 @@
 import {
     Divider,
-    Group,
     Navbar,
     Stack,
-    ThemeIcon,
     Title,
 } from '@mantine/core'
 import {
     IconBook,
-    IconBook2,
     IconUsers,
-} from '@tabler/icons-react'
+} from '@tabler/icons'
 import Link from 'next/link'
 
 import { SidebarButton } from '../SidebarButton'
@@ -18,38 +15,41 @@ import { SidebarButton } from '../SidebarButton'
 export const Sidebar = () => {
     return (
         <Navbar
-            p="xl"
-            width={{ lg: 300, sm: 200 }}
+            sx={(theme) => ({
+                padding: theme.spacing.xs,
+                width: '300px',
+            })}
         >
-            <Navbar.Section>
-                <Group>
-                    <ThemeIcon size="xl">
-                        <IconBook2 size={28} />
-                    </ThemeIcon>
-                    <Title>
-                        Library
-                    </Title>
-                </Group>
+            <Navbar.Section
+                sx={(theme) => ({
+                    padding: theme.spacing.xs,
+                })}
+            >
+                <Title>
+                    Library
+                </Title>
             </Navbar.Section>
             <Navbar.Section>
                 <Divider
-                    color="gray.3"
-                    mb={8}
-                    mt={18}
+                    color="gray.2"
+                    sx={(theme) => ({
+                        marginBottom: theme.spacing.sm,
+                        marginTop: theme.spacing.sm,
+                    })}
                 />
             </Navbar.Section>
             <Navbar.Section>
                 <Stack spacing={0}>
                     <Link href="/books">
                         <SidebarButton
-                            color="red"
+                            color="green"
                             icon={<IconBook />}
                             name="Books"
                         />
                     </Link>
                     <Link href="/employees">
                         <SidebarButton
-                            color="green"
+                            color="blue"
                             icon={<IconUsers />}
                             name="Employees"
                         />

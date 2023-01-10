@@ -1,6 +1,6 @@
 import {
     AppShell,
-    Box,
+    Global,
     MantineProvider,
     useMantineTheme,
 } from '@mantine/core'
@@ -40,18 +40,37 @@ const App = (props: AppProps) => {
                             },
                         },
                     },
+                    fontFamily: 'montserrat',
                 }}
                 withGlobalStyles={true}
                 withNormalizeCSS={true}
             >
                 <NotificationsProvider>
+                    <Global
+                        styles={{
+                            '#__next': {
+                                height: '100%',
+                                width: '100%',
+                            },
+                            'html, body': {
+                                height: '100%',
+                            },
+                        }}
+                    />
                     <AppShell
                         fixed={false}
                         navbar={<Sidebar />}
                         styles={{
+                            body: {
+                                height: '100%',
+                            },
                             main: {
-                                padding: 0,
                                 backgroundColor: theme.colors.gray[0],
+                                display: 'flex',
+                                padding: 0,
+                            },
+                            root: {
+                                height: '100%',
                             },
                         }}
                     >

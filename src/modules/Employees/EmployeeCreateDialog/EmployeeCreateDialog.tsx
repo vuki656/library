@@ -7,7 +7,7 @@ import {
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
-import { IconPlus } from '@tabler/icons-react'
+import { IconPlus } from '@tabler/icons'
 import {
     doc,
     setDoc,
@@ -28,7 +28,7 @@ import { employeeValidation } from './EmployeeCreateDialog.validation'
 export const EmployeeCreateDialog = () => {
     const [isOpen, setIsOpen] = useDisclosure(false)
 
-    const [createUserWithEmailAndPassword, _, loading] = useCreateUserWithEmailAndPassword(auth)
+    const [createUserWithEmailAndPassword,, loading] = useCreateUserWithEmailAndPassword(auth)
 
     const {
         formState,
@@ -39,7 +39,7 @@ export const EmployeeCreateDialog = () => {
         resolver: zodResolver(employeeValidation),
     })
 
-    const onSubmit = async (formValue: EmployeeCreateFormValue) => {
+    const onSubmit = (formValue: EmployeeCreateFormValue) => {
         createUserWithEmailAndPassword(formValue.email, formValue.password)
             .then(async (response) => {
                 if (!response) {

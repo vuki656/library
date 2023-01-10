@@ -10,7 +10,7 @@ import {
 import {
     IconPencil,
     IconTrash,
-} from '@tabler/icons-react'
+} from '@tabler/icons'
 import { query } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
@@ -26,7 +26,10 @@ export const Employees = () => {
     })
 
     return (
-        <Stack spacing={0}>
+        <Stack
+            spacing={0}
+            sx={{ flex: 1 }}
+        >
             <Paper
                 sx={(theme) => ({
                     borderBottom: `1px solid ${theme.colors.gray[2]}`,
@@ -43,16 +46,20 @@ export const Employees = () => {
             </Paper>
             <Stack
                 sx={(theme) => ({
+                    overflow: 'auto',
                     padding: theme.spacing.md,
                 })}
             >
                 {data?.map((user) => {
                     return (
-                        <Paper key={user.id}>
+                        <Paper
+                            key={user.id}
+                            shadow="xs"
+                        >
                             <Group
                                 position="apart"
                                 sx={(theme) => ({
-                                    padding: 100,
+                                    padding: theme.spacing.md,
                                 })}
                             >
                                 <Group>
