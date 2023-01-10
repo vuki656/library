@@ -8,12 +8,11 @@ import {
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons-react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
 import {
     doc,
     setDoc,
 } from 'firebase/firestore'
-import { useState } from 'react'
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -28,28 +27,20 @@ import { employeeValidation } from './EmployeeCreateDialog.validation'
 
 export const EmployeeCreateDialog = () => {
     const [isOpen, setIsOpen] = useDisclosure(false)
-    const [loading, setLoading] = useState(false)
 
-    const { 
+    const [createUserWithEmailAndPassword, _, loading] = useCreateUserWithEmailAndPassword(auth)
+
+    const {
         formState,
         handleSubmit,
         register,
         reset,
     } = useForm<EmployeeCreateFormValue>({
-        defaultValues: {
-            email: '',
-            firstName: '',
-            lastName: '',
-            password: '',
-            passwordConfirmation: '',
-        },
         resolver: zodResolver(employeeValidation),
     })
 
     const onSubmit = async (formValue: EmployeeCreateFormValue) => {
-        setLoading(true)
-
-        await createUserWithEmailAndPassword(auth, formValue.email, formValue.password)
+        createUserWithEmailAndPassword(formValue.email, formValue.password)
             .then(async (response) => {
                 if (!response) {
                     throw new Error('No response after creating user')
@@ -70,8 +61,6 @@ export const EmployeeCreateDialog = () => {
 
                 setIsOpen.close()
 
-                setLoading(false)
-
                 reset()
 
                 showNotification({
@@ -80,8 +69,8 @@ export const EmployeeCreateDialog = () => {
                     title: 'Success',
                 })
             })
-            .catch(() => {
-                setLoading(false)
+            .catch((error: unknown) => {
+                console.error(error)
 
                 showNotification({
                     color: 'red',

@@ -1,10 +1,13 @@
 import type { FirebaseOptions } from 'firebase/app'
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+import type { CollectionReference } from 'firebase/firestore'
 import {
     collection,
     getFirestore,
 } from 'firebase/firestore'
+
+import type { EmployeeType } from '../../modules/Employees/Employees.types'
 
 export const firebaseConifg: FirebaseOptions = {
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -25,5 +28,5 @@ export enum COLLECTION_NAMES {
 }
 
 export const COLLECTIONS = {
-    employees: collection(database, COLLECTION_NAMES.employees),
+    employees: collection(database, COLLECTION_NAMES.employees) as CollectionReference<EmployeeType>,
 }

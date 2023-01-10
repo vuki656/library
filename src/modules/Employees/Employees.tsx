@@ -12,25 +12,21 @@ import {
     IconTrash,
 } from '@tabler/icons-react'
 import { query } from 'firebase/firestore'
-import { useFirestoreCollectionData } from 'reactfire'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import { COLLECTIONS } from '../../shared/utils'
 
 import { EmployeeCreateDialog } from './EmployeeCreateDialog'
-import type { EmployeeType } from './Employees.types'
 
 export const Employees = () => {
     const employeesQuery = query(COLLECTIONS.employees)
 
-    // FIXME: query type, prob make a wrapper and cast
-    const { data, status } = useFirestoreCollectionData<EmployeeType>(employeesQuery as any, {
-        initialData: [],
+    const [data] = useCollectionData(employeesQuery, {
+        initialValue: [],
     })
 
-    console.log(data)
-
     return (
-        <Stack>
+        <Stack spacing={0}>
             <Paper
                 sx={(theme) => ({
                     borderBottom: `1px solid ${theme.colors.gray[2]}`,
@@ -50,13 +46,13 @@ export const Employees = () => {
                     padding: theme.spacing.md,
                 })}
             >
-                {data.map((user) => {
+                {data?.map((user) => {
                     return (
                         <Paper key={user.id}>
                             <Group
                                 position="apart"
                                 sx={(theme) => ({
-                                    padding: theme.spacing.sm,
+                                    padding: 100,
                                 })}
                             >
                                 <Group>

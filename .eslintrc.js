@@ -10,6 +10,7 @@ module.exports = {
     },
     ignorePatterns: ["node_modules", "public", "dist", ".eslintrc.js", "next.config.js"],
     rules: {
-        '@next/next/google-font-display': 'off'
+        '@next/next/google-font-display': 'off',
+        'no-console': 'off'
     }
 }
