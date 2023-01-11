@@ -20,6 +20,7 @@ import {
 import type { LoginFormValueType } from './Login.types'
 import { loginValidation } from './Login.validation'
 
+// FIXME: flashes after login
 export const Login = () => {
     const router = useRouter()
 

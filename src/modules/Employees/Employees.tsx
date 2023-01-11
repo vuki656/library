@@ -81,9 +81,6 @@ export const Employees = () => {
                                     <ThemeIcon variant="light">
                                         <IconPencil size={20} />
                                     </ThemeIcon>
-                                    <ThemeIcon variant="light">
-                                        <IconTrash size={20} />
-                                    </ThemeIcon>
                                 </Group>
                             </Group>
                         </Paper>
