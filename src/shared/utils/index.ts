@@ -1,2 +1,2 @@
 export * from './extractFormFieldErrors'
-export * from './firebase'
+export * from './supabase'

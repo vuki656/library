@@ -7,13 +7,10 @@ import {
     TextInput,
     Title,
 } from '@mantine/core'
-import { showNotification } from '@mantine/notifications'
 import { useRouter } from 'next/router'
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { useForm } from 'react-hook-form'
 
 import {
-    auth,
     extractFormFieldErrors,
 } from '../../shared/utils'
 
@@ -24,11 +21,6 @@ import { loginValidation } from './Login.validation'
 export const Login = () => {
     const router = useRouter()
 
-    const [
-        signInWithEmailAndPassword, ,
-        loading,
-    ] = useSignInWithEmailAndPassword(auth)
-
     const {
         formState,
         handleSubmit,
@@ -38,23 +30,7 @@ export const Login = () => {
     })
 
     const onSubmit = (formValue: LoginFormValueType) => {
-        signInWithEmailAndPassword(formValue.email, formValue.password)
-            .then((response) => {
-                if (!response) {
-                    throw new Error('No user')
-                }
-
-                void router.push('/employees')
-            })
-            .catch((error: unknown) => {
-                console.error(error)
-
-                showNotification({
-                    color: 'red',
-                    message: 'Failed to login',
-                    title: 'Error',
-                })
-            })
+        void router.push('/employees')
     }
 
     return (
@@ -96,7 +72,7 @@ export const Login = () => {
                     </Stack>
                     <Button
                         fullWidth={true}
-                        loading={loading}
+                        loading={false}
                         type="submit"
                     >
                         Login

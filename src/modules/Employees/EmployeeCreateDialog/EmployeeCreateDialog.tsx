@@ -6,22 +6,10 @@ import {
     TextInput,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons'
-import {
-    doc,
-    setDoc,
-} from 'firebase/firestore'
-import {
-    useCreateUserWithEmailAndPassword,
-    useUpdateProfile,
-} from 'react-firebase-hooks/auth'
 import { useForm } from 'react-hook-form'
 
 import {
-    auth,
-    COLLECTION_NAMES,
-    database,
     extractFormFieldErrors,
 } from '../../../shared/utils'
 
@@ -30,9 +18,6 @@ import { employeeValidation } from './EmployeeCreateDialog.validation'
 
 export const EmployeeCreateDialog = () => {
     const [isOpen, setIsOpen] = useDisclosure(false)
-
-    const [createUserWithEmailAndPassword,, createLoading] = useCreateUserWithEmailAndPassword(auth)
-    const [updateProfile, updateLoading] = useUpdateProfile(auth)
 
     const {
         formState,
@@ -44,52 +29,7 @@ export const EmployeeCreateDialog = () => {
     })
 
     const onSubmit = (formValue: EmployeeCreateFormValue) => {
-        createUserWithEmailAndPassword(formValue.email, formValue.password)
-            .then(async (response) => {
-                if (!response) {
-                    throw new Error('No response after creating user')
-                }
-
-                const photoURL = `https://i.pravatar.cc/300?u=${response.user.uid}`
-
-                const reference = doc(
-                    database,
-                    COLLECTION_NAMES.employees,
-                    response.user.uid
-                )
-
-                await setDoc(reference, {
-                    email: formValue.email,
-                    firstName: formValue.firstName,
-                    id: response.user.uid,
-                    lastName: formValue.lastName,
-                    photoURL,
-                })
-
-                await updateProfile({
-                    displayName: `${formValue.firstName} ${formValue.lastName}`,
-                    photoURL,
-                })
-
-                setIsOpen.close()
-
-                reset()
-
-                showNotification({
-                    color: 'green',
-                    message: 'User created successfully',
-                    title: 'Success',
-                })
-            })
-            .catch((error: unknown) => {
-                console.error(error)
-
-                showNotification({
-                    color: 'red',
-                    message: 'Failed to create an employee',
-                    title: 'Error',
-                })
-            })
+        console.log(formValue)
     }
 
     return (
@@ -146,7 +86,7 @@ export const EmployeeCreateDialog = () => {
                             withAsterisk={true}
                         />
                         <Button
-                            loading={createLoading || updateLoading}
+                            loading={false}
                             type="submit"
                         >
                             Create

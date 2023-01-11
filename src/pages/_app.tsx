@@ -8,11 +8,8 @@ import {
 import { NotificationsProvider } from '@mantine/notifications'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { useEffect } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 import { Sidebar } from '../components'
-import { auth } from '../shared/utils'
 
 // TODO: find a good font, this ?? https://github.com/mantinedev/ui.mantine.dev/blob/4202b446b7bfbdabc49106e496d4d0c4b31e0c08/components/ActionsGrid/ActionsGrid.tsx#L32
 const App = (props: AppProps) => {
@@ -24,13 +21,11 @@ const App = (props: AppProps) => {
 
     const theme = useMantineTheme()
 
-    const [user, loading] = useAuthState(auth)
-
-    useEffect(() => {
-        if (!user && !loading) {
-            void router.push('/')
-        }
-    }, [loading])
+    // useEffect(() => {
+    //     if (!user && !loading) {
+    //         void router.push('/')
+    //     }
+    // }, [loading])
 
     return (
         <>
@@ -79,7 +74,7 @@ const App = (props: AppProps) => {
                             },
                         }}
                     />
-                    <LoadingOverlay visible={loading} />
+                    <LoadingOverlay visible={false} />
                     {router.pathname !== '/' ? (
                         <AppShell
                             fixed={false}

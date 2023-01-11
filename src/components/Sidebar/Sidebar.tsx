@@ -12,22 +12,15 @@ import {
     IconLogout,
     IconUsers,
 } from '@tabler/icons'
-import { signOut } from 'firebase/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { auth } from '../../shared/utils'
 import { SidebarButton } from '../SidebarButton'
 
 export const Sidebar = () => {
     const router = useRouter()
 
-    const [user] = useAuthState(auth)
-
     const onLogout = async () => {
-        await signOut(auth)
-
         void router.push('/')
     }
 
@@ -91,7 +84,7 @@ export const Sidebar = () => {
                         <Avatar
                             radius="md"
                             size={40}
-                            src={user?.photoURL}
+                            src={''}
                         />
                         <Stack spacing={0}>
                             <Text
@@ -100,7 +93,7 @@ export const Sidebar = () => {
                                     fontWeight: 500,
                                 })}
                             >
-                                {user?.displayName}
+                                {''}
                             </Text>
                             <Text
                                 sx={(theme) => ({
@@ -108,7 +101,7 @@ export const Sidebar = () => {
                                     fontSize: theme.fontSizes.xs,
                                 })}
                             >
-                                {user?.email}
+                                {''}
                             </Text>
                         </Stack>
                     </Group>
