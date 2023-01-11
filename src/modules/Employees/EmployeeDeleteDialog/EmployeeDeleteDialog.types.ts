@@ -1,3 +1,3 @@
 export type EmployeeDeleteDialogProps = {
-   id: string 
+   id: string
 }

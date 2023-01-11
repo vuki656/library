@@ -84,7 +84,7 @@ export const Sidebar = () => {
                         <Avatar
                             radius="md"
                             size={40}
-                            src={''}
+                            src=""
                         />
                         <Stack spacing={0}>
                             <Text
@@ -92,17 +92,13 @@ export const Sidebar = () => {
                                     fontSize: theme.fontSizes.sm,
                                     fontWeight: 500,
                                 })}
-                            >
-                                {''}
-                            </Text>
+                            />
                             <Text
                                 sx={(theme) => ({
                                     color: 'dimgray',
                                     fontSize: theme.fontSizes.xs,
                                 })}
-                            >
-                                {''}
-                            </Text>
+                            />
                         </Stack>
                     </Group>
                 </Stack>

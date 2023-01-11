@@ -10,9 +10,7 @@ import {
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-import {
-    extractFormFieldErrors,
-} from '../../shared/utils'
+import { extractFormFieldErrors } from '../../shared/utils'
 
 import type { LoginFormValueType } from './Login.types'
 import { loginValidation } from './Login.validation'

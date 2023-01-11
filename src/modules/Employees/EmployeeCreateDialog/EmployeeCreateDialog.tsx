@@ -6,11 +6,14 @@ import {
     TextInput,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons'
 import { useForm } from 'react-hook-form'
 
 import {
     extractFormFieldErrors,
+    supabase,
+    TABLES,
 } from '../../../shared/utils'
 
 import type { EmployeeCreateFormValue } from './EmployeeCreateDialog.types'
@@ -28,8 +31,50 @@ export const EmployeeCreateDialog = () => {
         resolver: zodResolver(employeeValidation),
     })
 
-    const onSubmit = (formValue: EmployeeCreateFormValue) => {
-        console.log(formValue)
+    const onSubmit = async (formValue: EmployeeCreateFormValue) => {
+        await supabase
+            .from(TABLES.employees)
+            .insert({
+                email: formValue.email,
+                first_name: formValue.firstName,
+                last_name: formValue.lastName,
+            })
+            .then((response) => {
+                if (response.error) {
+                    console.error(response.error)
+
+                    showNotification({
+                        color: 'red',
+                        message: 'Error creating employee',
+                        title: 'Error',
+                    })
+                }
+            })
+
+        await supabase
+            .auth
+            .signUp({
+                email: formValue.email,
+                password: formValue.password,
+            })
+            .then(() => {
+                setIsOpen.close()
+
+                reset()
+
+                showNotification({
+                    color: 'green',
+                    message: 'Employee created successfully',
+                    title: 'Success',
+                })
+            })
+            .catch(() => {
+                showNotification({
+                    color: 'red',
+                    message: 'Error creating employee',
+                    title: 'Error',
+                })
+            })
     }
 
     return (

@@ -1,7 +1,6 @@
 export type EmployeeType = {
     email: string
-    firstName: string
+    first_name: string
     id: string
-    lastName: string
-    photoURL: string
+    last_name: string
 }

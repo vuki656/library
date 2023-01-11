@@ -7,15 +7,23 @@ import {
     ThemeIcon,
     Title,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 import { IconPencil } from '@tabler/icons'
-import { useEffect, useState } from 'react'
+import {
+    useEffect,
+    useState,
+} from 'react'
 
-import { supabase, TABLES } from '../../shared/utils'
+import {
+    supabase,
+    TABLES,
+} from '../../shared/utils'
 
 import { EmployeeCreateDialog } from './EmployeeCreateDialog'
-import { EmployeeType } from './Employees.types'
+import { EmployeeDeleteDialogDialog } from './EmployeeDeleteDialog'
+import type { EmployeeType } from './Employees.types'
 
-
+// TODO: how to refetch on db action
 export const Employees = () => {
     const [employees, setEmployees] = useState<EmployeeType[]>([])
 
@@ -24,7 +32,19 @@ export const Employees = () => {
             .from(TABLES.employees)
             .select('*')
             .then((response) => {
-                console.log(response)
+                if (response.error) {
+                    console.error(response.error)
+
+                    showNotification({
+                        color: 'red',
+                        message: 'Error fetching employees',
+                        title: 'Error',
+                    })
+
+                    return
+                }
+
+                setEmployees(response.data ?? [])
             })
     }, [])
 
@@ -53,7 +73,7 @@ export const Employees = () => {
                     padding: theme.spacing.md,
                 })}
             >
-                {[]?.map((user) => {
+                {employees.map((user) => {
                     return (
                         <Paper
                             key={user.id}
@@ -72,15 +92,16 @@ export const Employees = () => {
                                         src={user.photoURL}
                                     />
                                     <Text>
-                                        {user.firstName}
+                                        {user.first_name}
                                         {' '}
-                                        {user.lastName}
+                                        {user.last_name}
                                     </Text>
                                 </Group>
                                 <Group>
                                     <ThemeIcon variant="light">
                                         <IconPencil size={20} />
                                     </ThemeIcon>
+                                    <EmployeeDeleteDialogDialog id={user.id} />
                                 </Group>
                             </Group>
                         </Paper>
