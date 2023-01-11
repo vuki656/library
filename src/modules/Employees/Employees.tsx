@@ -25,6 +25,9 @@ export const Employees = () => {
         initialValue: [],
     })
 
+    // TODO: delete user
+    // TODO: update user
+
     return (
         <Stack
             spacing={0}
