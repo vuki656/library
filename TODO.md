@@ -1,2 +1,9 @@
 - [ ] Current user image
 - [ ] Employee image
+- [ ] Consider extracting authors to a separate function
+    - Maybe at the end where we "optimize stuff"
+    - Forms as well
+- [ ] No employee update function
+- [ ] Author update dialog doesnt refresh after update
+    - Open dialog, change, update, open again => old value will be there
+- [ ] Loading states

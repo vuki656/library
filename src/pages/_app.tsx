@@ -34,9 +34,7 @@ const App = (props: AppProps) => {
             .auth
             .getUser()
             .then((response) => {
-                if (response.data.user) {
-                    void router.push('/employees')
-                } else {
+                if (!response.data.user) {
                     void router.push('/')
                 }
 

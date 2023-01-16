@@ -29,6 +29,32 @@ export interface Database {
           last_name?: string
         }
       }
+      books: {
+        Row: {
+          author_fk: string
+          created_at: string
+          id: string
+          name: string
+          page_count: number
+          release_date: string
+        }
+        Insert: {
+          author_fk: string
+          created_at?: string
+          id?: string
+          name: string
+          page_count: number
+          release_date: string
+        }
+        Update: {
+          author_fk?: string
+          created_at?: string
+          id?: string
+          name?: string
+          page_count?: number
+          release_date?: string
+        }
+      }
       employees: {
         Row: {
           created_at: string

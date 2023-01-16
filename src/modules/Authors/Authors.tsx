@@ -34,7 +34,7 @@ export const Authors = () => {
 
                     showNotification({
                         color: 'red',
-                        message: 'Error fetching employees',
+                        message: 'Error fetching authors',
                         title: 'Error',
                     })
 

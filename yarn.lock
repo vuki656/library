@@ -362,6 +362,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantine/dates@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "@mantine/dates@npm:5.10.0"
+  dependencies:
+    "@mantine/utils": 5.10.0
+  peerDependencies:
+    "@mantine/core": 5.10.0
+    "@mantine/hooks": 5.10.0
+    dayjs: ">=1.0.0"
+    react: ">=16.8.0"
+  checksum: c24c96da625aed933879b14fbe928fd43c133b5d264a2482a8a3550145d5eeecc174d1a15a8ce705ffa470f1cf5d2171de8d5932a335215bcb0e3029a35a4f06
+  languageName: node
+  linkType: hard
+
 "@mantine/hooks@npm:^5.10.0":
   version: 5.10.0
   resolution: "@mantine/hooks@npm:5.10.0"
@@ -3723,6 +3737,7 @@ __metadata:
     "@emotion/server": ^11.10.0
     "@hookform/resolvers": ^2.9.10
     "@mantine/core": ^5.10.0
+    "@mantine/dates": ^5.10.0
     "@mantine/hooks": ^5.10.0
     "@mantine/next": ^5.10.0
     "@mantine/notifications": ^5.10.0

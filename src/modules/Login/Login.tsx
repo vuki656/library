@@ -78,7 +78,7 @@ export const Login = () => {
                             {...register('email')}
                             {...extractFormFieldErrors(formState.errors.email)}
                             label="Email"
-                            placeholder="Enter your email"
+                            placeholder="Your email"
                             type="email"
                             withAsterisk={true}
                         />
@@ -86,7 +86,7 @@ export const Login = () => {
                             {...register('password')}
                             {...extractFormFieldErrors(formState.errors.password)}
                             label="Password"
-                            placeholder="Enter your password"
+                            placeholder="Your password"
                             type="password"
                             withAsterisk={true}
                         />

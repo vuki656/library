@@ -1,13 +1,45 @@
 import {
     Group,
+    Text,
     Paper,
     Stack,
     Title,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
+import { useEffect, useState } from 'react'
+import { supabase, TABLES } from '../../shared/utils'
 
 import { BookCreateDialog } from './BookCreateDialog'
+import { BookType } from './Books.types'
 
 export const Books = () => {
+    const [books, setBooks] = useState<BookType[]>([])
+
+    const fetchBooks = () => {
+        void supabase
+            .from(TABLES.books)
+            .select('*')
+            .then((response) => {
+                if (response.error) {
+                    console.error(response.error)
+
+                    showNotification({
+                        color: 'red',
+                        message: 'Error fetching books',
+                        title: 'Error',
+                    })
+
+                    return
+                }
+
+                setBooks(response.data)
+            })
+    }
+
+    useEffect(() => {
+        fetchBooks()
+    }, [])
+
     return (
         <Stack
             spacing={0}
@@ -27,6 +59,44 @@ export const Books = () => {
                     <BookCreateDialog />
                 </Group>
             </Paper>
+            <Stack
+                sx={(theme) => ({
+                    overflow: 'auto',
+                    padding: theme.spacing.md,
+                })}
+            >
+                {books.map((book) => {
+                    return (
+                        <Paper
+                            key={book.id}
+                            shadow="xs"
+                        >
+                            <Group
+                                position="apart"
+                                sx={(theme) => ({
+                                    padding: theme.spacing.md,
+                                })}
+                            >
+                                <Group>
+                                    <Text>
+                                        {book.name}
+                                    </Text>
+                                </Group>
+                                {/* <Group> */}
+                                {/*     <ThemeIcon variant="light"> */}
+                                {/*         <IconPencil size={20} /> */}
+                                {/*     </ThemeIcon> */}
+                                {/*     <EmployeeDeleteDialogDialog */}
+                                {/*         employee={book} */}
+                                {/*         onSubmit={fetchBooks} */}
+                                {/*     /> */}
+                                {/* </Group> */}
+                            </Group>
+                        </Paper>
+                    )
+                })}
+            </Stack>
+
         </Stack>
     )
 }
