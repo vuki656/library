@@ -27,7 +27,7 @@ export const Employees = () => {
     const [employees, setEmployees] = useState<EmployeeType[]>([])
 
     const fetchEmployees = () => {
-        supabase
+        void supabase
             .from(TABLES.employees)
             .select('*')
             .then((response) => {
@@ -43,7 +43,7 @@ export const Employees = () => {
                     return
                 }
 
-                setEmployees(response.data ?? [])
+                setEmployees(response.data)
             })
     }
 
@@ -92,7 +92,7 @@ export const Employees = () => {
                                     <Avatar
                                         radius="md"
                                         size={40}
-                                        src={employee.photoURL}
+                                        src=""
                                     />
                                     <Text>
                                         {employee.first_name}

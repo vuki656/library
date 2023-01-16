@@ -25,7 +25,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
     const [isOpen, setIsOpen] = useDisclosure(false)
 
     const onDelete = () => {
-        supabase
+        void supabase
             .from(TABLES.employees)
             .delete()
             .eq('id', employee.id)

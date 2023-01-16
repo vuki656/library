@@ -11,7 +11,6 @@ import Head from 'next/head'
 
 import { Sidebar } from '../components'
 
-// TODO: find a good font, this ?? https://github.com/mantinedev/ui.mantine.dev/blob/4202b446b7bfbdabc49106e496d4d0c4b31e0c08/components/ActionsGrid/ActionsGrid.tsx#L32
 const App = (props: AppProps) => {
     const {
         Component,
