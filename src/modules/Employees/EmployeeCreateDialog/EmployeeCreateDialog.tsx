@@ -18,7 +18,7 @@ import {
 
 import type {
     EmployeeCreateDialogProps,
-    EmployeeCreateFormValue,
+    EmployeeCreateFormValueType,
 } from './EmployeeCreateDialog.types'
 import { employeeValidation } from './EmployeeCreateDialog.validation'
 
@@ -34,11 +34,11 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
         handleSubmit,
         register,
         reset,
-    } = useForm<EmployeeCreateFormValue>({
+    } = useForm<EmployeeCreateFormValueType>({
         resolver: zodResolver(employeeValidation),
     })
 
-    const onSubmit = async (formValue: EmployeeCreateFormValue) => {
+    const onSubmit = async (formValue: EmployeeCreateFormValueType) => {
         try {
             const response = await supabase
                 .auth

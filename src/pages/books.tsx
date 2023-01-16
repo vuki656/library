@@ -1,8 +1,8 @@
+import { Books } from '../modules'
+
 const BooksPage = () => {
     return (
-        <p>
-            Books
-        </p>
+        <Books />
     )
 }
 

@@ -107,6 +107,13 @@ export const Sidebar = () => {
                             name="Employees"
                         />
                     </Link>
+                    <Link href="/authors">
+                        <SidebarButton
+                            color="red"
+                            icon={<IconUsers />}
+                            name="Authors"
+                        />
+                    </Link>
                 </Stack>
             </Navbar.Section>
             <Navbar.Section>

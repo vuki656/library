@@ -8,5 +8,6 @@ export const supabase = createClient<Database>(
 )
 
 export enum TABLES {
+    authors = 'authors',
     employees = 'employees'
 }

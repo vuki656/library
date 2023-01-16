@@ -1,28 +1,47 @@
 export type Json =
-  Json[] | boolean | number | string | { [key: string]: Json } | null
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json }
+  | Json[]
 
 export interface Database {
   public: {
-    Enums: {
-      [_ in never]: never
-    }
-    Functions: {
-      [_ in never]: never
-    }
     Tables: {
-      employees: {
+      authors: {
+        Row: {
+          created_at: string
+          first_name: string
+          id: string
+          last_name: string
+        }
         Insert: {
           created_at?: string
-          email: string
           first_name: string
           id?: string
           last_name: string
         }
+        Update: {
+          created_at?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+        }
+      }
+      employees: {
         Row: {
           created_at: string
           email: string
           first_name: string
           id: string
+          last_name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
           last_name: string
         }
         Update: {
@@ -35,6 +54,12 @@ export interface Database {
       }
     }
     Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
       [_ in never]: never
     }
   }
