@@ -23,11 +23,10 @@ import { EmployeeCreateDialog } from './EmployeeCreateDialog'
 import { EmployeeDeleteDialogDialog } from './EmployeeDeleteDialog'
 import type { EmployeeType } from './Employees.types'
 
-// TODO: how to refetch on db action
 export const Employees = () => {
     const [employees, setEmployees] = useState<EmployeeType[]>([])
 
-    useEffect(() => {
+    const fetchEmployees = () => {
         supabase
             .from(TABLES.employees)
             .select('*')
@@ -46,6 +45,10 @@ export const Employees = () => {
 
                 setEmployees(response.data ?? [])
             })
+    }
+
+    useEffect(() => {
+        fetchEmployees()
     }, [])
 
     return (
@@ -64,7 +67,7 @@ export const Employees = () => {
                     <Title order={3}>
                         Employees
                     </Title>
-                    <EmployeeCreateDialog />
+                    <EmployeeCreateDialog onSubmit={fetchEmployees} />
                 </Group>
             </Paper>
             <Stack
@@ -73,10 +76,10 @@ export const Employees = () => {
                     padding: theme.spacing.md,
                 })}
             >
-                {employees.map((user) => {
+                {employees.map((employee) => {
                     return (
                         <Paper
-                            key={user.id}
+                            key={employee.id}
                             shadow="xs"
                         >
                             <Group
@@ -89,19 +92,22 @@ export const Employees = () => {
                                     <Avatar
                                         radius="md"
                                         size={40}
-                                        src={user.photoURL}
+                                        src={employee.photoURL}
                                     />
                                     <Text>
-                                        {user.first_name}
+                                        {employee.first_name}
                                         {' '}
-                                        {user.last_name}
+                                        {employee.last_name}
                                     </Text>
                                 </Group>
                                 <Group>
                                     <ThemeIcon variant="light">
                                         <IconPencil size={20} />
                                     </ThemeIcon>
-                                    <EmployeeDeleteDialogDialog id={user.id} />
+                                    <EmployeeDeleteDialogDialog
+                                        employee={employee}
+                                        onSubmit={fetchEmployees}
+                                    />
                                 </Group>
                             </Group>
                         </Paper>

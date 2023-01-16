@@ -1,3 +1,6 @@
+import type { EmployeeType } from '../Employees.types'
+
 export type EmployeeDeleteDialogProps = {
-   id: string
+   employee: EmployeeType
+    onSubmit(): void
 }

@@ -2,6 +2,7 @@ import {
     Button,
     Group,
     Modal,
+    Text,
     ThemeIcon,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
@@ -16,7 +17,10 @@ import {
 import type { EmployeeDeleteDialogProps } from './EmployeeDeleteDialog.types'
 
 export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => {
-    const { id } = props
+    const {
+        employee,
+        onSubmit,
+    } = props
 
     const [isOpen, setIsOpen] = useDisclosure(false)
 
@@ -24,7 +28,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
         supabase
             .from(TABLES.employees)
             .delete()
-            .eq('id', id)
+            .eq('id', employee.id)
             .then((response) => {
                 if (response.error) {
                     showNotification({
@@ -43,6 +47,8 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                 })
 
                 setIsOpen.close()
+
+                onSubmit()
             })
     }
 
@@ -59,9 +65,16 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                 opened={isOpen}
                 title="Confirm Deletion"
             >
+                <Text>
+                    Are you sure you want to delete
+                    {' '}
+                    <strong>
+                        {`${employee.first_name} ${employee.last_name}`}
+                    </strong>
+                    ?
+                </Text>
                 <Group position="right">
                     <Button
-                        color="gray"
                         onClick={setIsOpen.close}
                         variant="outline"
                     >
@@ -70,7 +83,6 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                     <Button
                         color="red"
                         onClick={onDelete}
-                        variant="outline"
                     >
                         Confirm
                     </Button>

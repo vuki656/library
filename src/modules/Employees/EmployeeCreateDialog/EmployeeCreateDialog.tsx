@@ -16,10 +16,17 @@ import {
     TABLES,
 } from '../../../shared/utils'
 
-import type { EmployeeCreateFormValue } from './EmployeeCreateDialog.types'
+import type {
+    EmployeeCreateDialogProps,
+    EmployeeCreateFormValue,
+} from './EmployeeCreateDialog.types'
 import { employeeValidation } from './EmployeeCreateDialog.validation'
 
-export const EmployeeCreateDialog = () => {
+export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
+    const {
+        onSubmit: onSubmitProp,
+    } = props
+
     const [isOpen, setIsOpen] = useDisclosure(false)
 
     const {
@@ -32,49 +39,42 @@ export const EmployeeCreateDialog = () => {
     })
 
     const onSubmit = async (formValue: EmployeeCreateFormValue) => {
-        await supabase
-            .from(TABLES.employees)
-            .insert({
-                email: formValue.email,
-                first_name: formValue.firstName,
-                last_name: formValue.lastName,
-            })
-            .then((response) => {
-                if (response.error) {
-                    console.error(response.error)
-
-                    showNotification({
-                        color: 'red',
-                        message: 'Error creating employee',
-                        title: 'Error',
-                    })
-                }
-            })
-
-        await supabase
-            .auth
-            .signUp({
-                email: formValue.email,
-                password: formValue.password,
-            })
-            .then(() => {
-                setIsOpen.close()
-
-                reset()
-
-                showNotification({
-                    color: 'green',
-                    message: 'Employee created successfully',
-                    title: 'Success',
+        try {
+            await supabase
+                .from(TABLES.employees)
+                .insert({
+                    email: formValue.email,
+                    first_name: formValue.firstName,
+                    last_name: formValue.lastName,
                 })
-            })
-            .catch(() => {
-                showNotification({
-                    color: 'red',
-                    message: 'Error creating employee',
-                    title: 'Error',
+
+            await supabase
+                .auth
+                .signUp({
+                    email: formValue.email,
+                    password: formValue.password,
                 })
+
+            onSubmitProp()
+
+            setIsOpen.close()
+
+            reset()
+
+            showNotification({
+                color: 'green',
+                message: 'Employee created successfully',
+                title: 'Success',
             })
+        } catch (error) {
+            console.error(error)
+
+            showNotification({
+                color: 'red',
+                message: 'Error creating employee',
+                title: 'Error',
+            })
+        }
     }
 
     return (
