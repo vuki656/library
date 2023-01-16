@@ -14,15 +14,60 @@ import {
 } from '@tabler/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import {
+    useEffect,
+    useState,
+} from 'react'
 
+import type { EmployeeType } from '../../modules'
+import {
+    supabase,
+    TABLES,
+} from '../../shared/utils'
 import { SidebarButton } from '../SidebarButton'
 
 export const Sidebar = () => {
     const router = useRouter()
 
-    const onLogout = async () => {
-        void router.push('/')
+    const [currentUser, setCurrentUser] = useState<EmployeeType | null>(null)
+
+    const onLogout = () => {
+        void supabase
+            .auth
+            .signOut()
+            .then(() => {
+                void router.push('/')
+            })
     }
+
+    const fetchCurrentUser = async () => {
+        if (currentUser) {
+            return
+        }
+
+        const authCurrentUser = await supabase
+            .auth
+            .getUser()
+
+        void supabase
+            .from(TABLES.employees)
+            .select('*')
+            .eq('id', authCurrentUser.data.user?.id)
+            .single()
+            .then((response) => {
+                if (response.error) {
+                    console.error(response.error)
+
+                    return
+                }
+
+                setCurrentUser(response.data)
+            })
+    }
+
+    useEffect(() => {
+        void fetchCurrentUser()
+    }, [])
 
     return (
         <Navbar
@@ -92,13 +137,17 @@ export const Sidebar = () => {
                                     fontSize: theme.fontSizes.sm,
                                     fontWeight: 500,
                                 })}
-                            />
+                            >
+                                {currentUser?.first_name}
+                            </Text>
                             <Text
                                 sx={(theme) => ({
                                     color: 'dimgray',
                                     fontSize: theme.fontSizes.xs,
                                 })}
-                            />
+                            >
+                                {currentUser?.last_name}
+                            </Text>
                         </Stack>
                     </Group>
                 </Stack>

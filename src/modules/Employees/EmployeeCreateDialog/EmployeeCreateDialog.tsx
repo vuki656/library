@@ -40,19 +40,24 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
 
     const onSubmit = async (formValue: EmployeeCreateFormValue) => {
         try {
+            const response = await supabase
+                .auth
+                .signUp({
+                    email: formValue.email,
+                    password: formValue.password,
+                })
+
+            if (!response.data.user) {
+                throw new Error('No user after create')
+            }
+
             await supabase
                 .from(TABLES.employees)
                 .insert({
                     email: formValue.email,
                     first_name: formValue.firstName,
+                    id: response.data.user.id,
                     last_name: formValue.lastName,
-                })
-
-            await supabase
-                .auth
-                .signUp({
-                    email: formValue.email,
-                    password: formValue.password,
                 })
 
             onSubmitProp()

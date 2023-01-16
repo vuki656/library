@@ -8,8 +8,13 @@ import {
 import { NotificationsProvider } from '@mantine/notifications'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import {
+    useEffect,
+    useState,
+} from 'react'
 
 import { Sidebar } from '../components'
+import { supabase } from '../shared/utils'
 
 const App = (props: AppProps) => {
     const {
@@ -20,11 +25,24 @@ const App = (props: AppProps) => {
 
     const theme = useMantineTheme()
 
-    // useEffect(() => {
-    //     if (!user && !loading) {
-    //         void router.push('/')
-    //     }
-    // }, [loading])
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true)
+
+        void supabase
+            .auth
+            .getUser()
+            .then((response) => {
+                if (response.data.user) {
+                    void router.push('/employees')
+                } else {
+                    void router.push('/')
+                }
+
+                setLoading(false)
+            })
+    }, [])
 
     return (
         <>
@@ -73,7 +91,7 @@ const App = (props: AppProps) => {
                             },
                         }}
                     />
-                    <LoadingOverlay visible={false} />
+                    <LoadingOverlay visible={loading} />
                     {router.pathname !== '/' ? (
                         <AppShell
                             fixed={false}

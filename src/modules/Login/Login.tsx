@@ -7,15 +7,18 @@ import {
     TextInput,
     Title,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-import { extractFormFieldErrors } from '../../shared/utils'
+import {
+    extractFormFieldErrors,
+    supabase,
+} from '../../shared/utils'
 
 import type { LoginFormValueType } from './Login.types'
 import { loginValidation } from './Login.validation'
 
-// FIXME: flashes after login
 export const Login = () => {
     const router = useRouter()
 
@@ -28,7 +31,27 @@ export const Login = () => {
     })
 
     const onSubmit = (formValue: LoginFormValueType) => {
-        void router.push('/employees')
+        void supabase
+            .auth
+            .signInWithPassword({
+                email: formValue.email,
+                password: formValue.password,
+            })
+            .then((response) => {
+                if (response.error) {
+                    console.error(response.error)
+
+                    showNotification({
+                        color: 'red',
+                        message: 'Error logging in',
+                        title: 'Error',
+                    })
+
+                    return
+                }
+
+                void router.push('/employees')
+            })
     }
 
     return (
