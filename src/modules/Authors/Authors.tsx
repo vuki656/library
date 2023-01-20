@@ -28,6 +28,7 @@ export const Authors = () => {
         void supabase
             .from(TABLES.authors)
             .select('*')
+            .order('first_name')
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
