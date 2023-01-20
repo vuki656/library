@@ -1,8 +1,8 @@
 import type { z } from 'zod'
 
-import type { employeeValidation } from './EmployeeCreateDialog.validation'
+import type { employeeCreateValidation } from './EmployeeCreateDialog.validation'
 
-export type EmployeeCreateFormValueType = z.infer<typeof employeeValidation>
+export type EmployeeCreateFormValueType = z.infer<typeof employeeCreateValidation>
 
 export type EmployeeCreateDialogProps = {
     onSubmit(): void

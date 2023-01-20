@@ -20,7 +20,7 @@ import type {
     EmployeeCreateDialogProps,
     EmployeeCreateFormValueType,
 } from './EmployeeCreateDialog.types'
-import { employeeValidation } from './EmployeeCreateDialog.validation'
+import { employeeCreateValidation } from './EmployeeCreateDialog.validation'
 
 export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
     const {
@@ -35,7 +35,7 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
         register,
         reset,
     } = useForm<EmployeeCreateFormValueType>({
-        resolver: zodResolver(employeeValidation),
+        resolver: zodResolver(employeeCreateValidation),
     })
 
     const onSubmit = async (formValue: EmployeeCreateFormValueType) => {

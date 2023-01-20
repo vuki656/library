@@ -1,5 +1,4 @@
 import {
-    ActionIcon,
     Avatar,
     Group,
     Paper,
@@ -8,7 +7,6 @@ import {
     Title,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconPencil } from '@tabler/icons'
 import {
     useEffect,
     useState,
@@ -22,6 +20,7 @@ import {
 import { EmployeeCreateDialog } from './EmployeeCreateDialog'
 import { EmployeeDeleteDialogDialog } from './EmployeeDeleteDialog'
 import type { EmployeeType } from './Employees.types'
+import { EmployeeUpdateDialog } from './EmployeeUpdateDialog'
 
 export const Employees = () => {
     const [employees, setEmployees] = useState<EmployeeType[]>([])
@@ -102,12 +101,10 @@ export const Employees = () => {
                                     </Text>
                                 </Group>
                                 <Group>
-                                    <ActionIcon
-                                        color="blue"
-                                        variant="light"
-                                    >
-                                        <IconPencil size={20} />
-                                    </ActionIcon>
+                                    <EmployeeUpdateDialog
+                                        employee={employee}
+                                        onSubmit={fetchEmployees}
+                                    />
                                     <EmployeeDeleteDialogDialog
                                         employee={employee}
                                         onSubmit={fetchEmployees}
