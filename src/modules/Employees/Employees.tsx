@@ -30,6 +30,7 @@ export const Employees = () => {
         void supabase
             .from(TABLES.employees)
             .select('*')
+            .order('firstName')
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
