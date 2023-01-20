@@ -17,6 +17,7 @@ import {
     TABLES,
 } from '../../shared/utils'
 
+import { EmployeeChangePasswordDialog } from './EmployeeChangePasswordDialog'
 import { EmployeeCreateDialog } from './EmployeeCreateDialog'
 import { EmployeeDeleteDialogDialog } from './EmployeeDeleteDialog'
 import type { EmployeeType } from './Employees.types'
@@ -24,6 +25,7 @@ import { EmployeeUpdateDialog } from './EmployeeUpdateDialog'
 
 export const Employees = () => {
     const [employees, setEmployees] = useState<EmployeeType[]>([])
+    const [currentEmployeeId, setCurrentEmployeeId] = useState<string | null>(null)
 
     const fetchEmployees = () => {
         void supabase
@@ -47,8 +49,30 @@ export const Employees = () => {
             })
     }
 
+    const fetchCurrentEmployee = () => {
+        supabase
+            .auth
+            .getUser()
+            .then((response) => {
+                if (response.error) {
+                    console.error(response.error)
+
+                    showNotification({
+                        color: 'red',
+                        message: 'Error current employee',
+                        title: 'Error',
+                    })
+
+                    return
+                }
+
+                setCurrentEmployeeId(response.data.user.id)
+            })
+    }
+
     useEffect(() => {
         fetchEmployees()
+        fetchCurrentEmployee()
     }, [])
 
     return (
@@ -101,6 +125,9 @@ export const Employees = () => {
                                     </Text>
                                 </Group>
                                 <Group>
+                                    {employee.id === currentEmployeeId ? (
+                                        <EmployeeChangePasswordDialog onSubmit={fetchEmployees} />
+                                    ) : null}
                                     <EmployeeUpdateDialog
                                         employee={employee}
                                         onSubmit={fetchEmployees}

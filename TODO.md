@@ -4,7 +4,8 @@
     - Maybe at the end where we "optimize stuff"
     - Forms as well
 - [ ] Replace useDisclosure with regular state
-- [ ] Change password dialog
+- [ ] Rename currentUser to currentEmployee
+- [ ] Make confirm dialog look better
 
 NEXT
 - [ ] Go trough each list and make sure its in sync

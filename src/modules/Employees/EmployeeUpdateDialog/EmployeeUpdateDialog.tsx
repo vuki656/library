@@ -102,7 +102,7 @@ export const EmployeeUpdateDialog = (props: EmployeeUpdateDialogProps) => {
             <Modal
                 onClose={onClose}
                 opened={isOpen}
-                title="Create Employee"
+                title="Update Employee"
             >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
