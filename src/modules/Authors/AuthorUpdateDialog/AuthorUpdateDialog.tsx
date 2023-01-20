@@ -6,9 +6,9 @@ import {
     Stack,
     TextInput,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 import { IconPencil } from '@tabler/icons'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -29,7 +29,7 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
         onSubmit: onSubmitProp,
     } = props
 
-    const [isOpen, setIsOpen] = useDisclosure(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const {
         formState,
@@ -66,7 +66,7 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
 
                 onSubmitProp()
 
-                setIsOpen.close()
+                setIsOpen(false)
 
                 reset()
 
@@ -78,17 +78,25 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
             })
     }
 
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    const onOpen = () => {
+        setIsOpen(true)
+    }
+
     return (
         <>
             <ActionIcon
                 color="blue"
-                onClick={setIsOpen.open}
+                onClick={onOpen}
                 variant="light"
             >
                 <IconPencil size={20} />
             </ActionIcon>
             <Modal
-                onClose={setIsOpen.close}
+                onClose={onClose}
                 opened={isOpen}
                 title="Create Author"
             >

@@ -5,9 +5,9 @@ import {
     Stack,
     TextInput,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -27,7 +27,7 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
         onSubmit: onSubmitProp,
     } = props
 
-    const [isOpen, setIsOpen] = useDisclosure(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const {
         formState,
@@ -62,7 +62,7 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
 
             onSubmitProp()
 
-            setIsOpen.close()
+            setIsOpen(false)
 
             reset()
 
@@ -82,16 +82,24 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
         }
     }
 
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    const onOpen = () => {
+        setIsOpen(true)
+    }
+
     return (
         <>
             <Button
                 leftIcon={<IconPlus size={20} />}
-                onClick={setIsOpen.open}
+                onClick={onOpen}
             >
                 Create
             </Button>
             <Modal
-                onClose={setIsOpen.close}
+                onClose={onClose}
                 opened={isOpen}
                 title="Create Employee"
             >

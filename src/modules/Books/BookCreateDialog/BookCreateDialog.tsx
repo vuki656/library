@@ -7,7 +7,6 @@ import {
     TextInput,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
-import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons'
 import dayjs from 'dayjs'
@@ -31,7 +30,7 @@ import type { BookCreateFormValueType } from './BookCreateDialog.types'
 import { bookValidation } from './BookCreateDialog.validation'
 
 export const BookCreateDialog = () => {
-    const [isOpen, setIsOpen] = useDisclosure(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const [authors, setAuthors] = useState<AuthorType[]>([])
 
@@ -72,6 +71,14 @@ export const BookCreateDialog = () => {
         void fetchAuthors()
     }, [])
 
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    const onOpen = () => {
+        setIsOpen(true)
+    }
+
     const onSubmit = async (formValue: BookCreateFormValueType) => {
         await supabase
             .from(TABLES.books)
@@ -102,12 +109,12 @@ export const BookCreateDialog = () => {
         <>
             <Button
                 leftIcon={<IconPlus size={20} />}
-                onClick={setIsOpen.open}
+                onClick={onOpen}
             >
                 Create
             </Button>
             <Modal
-                onClose={setIsOpen.close}
+                onClose={onClose}
                 opened={isOpen}
                 title="Create Book"
             >

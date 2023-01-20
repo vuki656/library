@@ -5,9 +5,9 @@ import {
     Modal,
     Text,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
 import { IconTrash } from '@tabler/icons'
+import { useState } from 'react'
 
 import {
     supabase,
@@ -22,7 +22,7 @@ export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
         onSubmit,
     } = props
 
-    const [isOpen, setIsOpen] = useDisclosure(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const onDelete = () => {
         void supabase
@@ -46,23 +46,31 @@ export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
                     title: 'Success',
                 })
 
-                setIsOpen.close()
+                setIsOpen(false)
 
                 onSubmit()
             })
+    }
+
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    const onOpen = () => {
+        setIsOpen(true)
     }
 
     return (
         <>
             <ActionIcon
                 color="blue"
-                onClick={setIsOpen.open}
+                onClick={onOpen}
                 variant="light"
             >
                 <IconTrash size={20} />
             </ActionIcon>
             <Modal
-                onClose={setIsOpen.close}
+                onClose={onClose}
                 opened={isOpen}
                 title="Confirm Deletion"
             >
@@ -76,7 +84,7 @@ export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
                 </Text>
                 <Group position="right">
                     <Button
-                        onClick={setIsOpen.close}
+                        onClick={onClose}
                         variant="outline"
                     >
                         Cancel
