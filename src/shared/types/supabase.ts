@@ -11,71 +11,62 @@ export interface Database {
     Tables: {
       authors: {
         Row: {
-          created_at: string
-          first_name: string
+          firstName: string
           id: string
-          last_name: string
+          lastName: string
         }
         Insert: {
-          created_at?: string
-          first_name: string
+          firstName: string
           id?: string
-          last_name: string
+          lastName: string
         }
         Update: {
-          created_at?: string
-          first_name?: string
+          firstName?: string
           id?: string
-          last_name?: string
+          lastName?: string
         }
       }
       books: {
         Row: {
-          author_fk: string
-          created_at: string
+          authorFk: string
           id: string
           name: string
-          page_count: number
-          release_date: string
+          pageCount: number
+          releaseDate: string
         }
         Insert: {
-          author_fk: string
-          created_at?: string
+          authorFk: string
           id?: string
           name: string
-          page_count: number
-          release_date: string
+          pageCount: number
+          releaseDate: string
         }
         Update: {
-          author_fk?: string
-          created_at?: string
+          authorFk?: string
           id?: string
           name?: string
-          page_count?: number
-          release_date?: string
+          pageCount?: number
+          releaseDate?: string
         }
       }
       employees: {
         Row: {
-          created_at: string
           email: string
-          first_name: string
+          firstName: string
           id: string
-          last_name: string
+          lastName: string
         }
         Insert: {
-          created_at?: string
           email: string
-          first_name: string
+          firstName: string
           id?: string
-          last_name: string
+          lastName: string
         }
         Update: {
-          created_at?: string
           email?: string
-          first_name?: string
+          firstName?: string
           id?: string
-          last_name?: string
+          lastName?: string
         }
       }
     }

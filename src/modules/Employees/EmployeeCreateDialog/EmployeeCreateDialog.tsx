@@ -55,9 +55,9 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
                 .from(TABLES.employees)
                 .insert({
                     email: formValue.email,
-                    first_name: formValue.firstName,
+                    firstName: formValue.firstName,
                     id: response.data.user.id,
-                    last_name: formValue.lastName,
+                    lastName: formValue.lastName,
                 })
 
             onSubmitProp()

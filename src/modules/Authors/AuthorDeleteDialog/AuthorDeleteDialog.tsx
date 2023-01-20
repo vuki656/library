@@ -69,7 +69,7 @@ export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
                     Are you sure you want to delete
                     {' '}
                     <strong>
-                        {`${author.first_name} ${author.last_name}`}
+                        {`${author.firstName} ${author.lastName}`}
                     </strong>
                     ?
                 </Text>

@@ -80,10 +80,10 @@ export const BookCreateDialog = () => {
         await supabase
             .from(TABLES.books)
             .insert({
-                author_fk: formValue.author,
+                authorFk: formValue.author,
                 name: formValue.name,
-                page_count: formValue.pagesCount,
-                release_date: formValue.releaseDate,
+                pageCount: formValue.pagesCount,
+                releaseDate: formValue.releaseDate,
             })
             .then(async (response) => {
                 if (response.error) {
@@ -144,7 +144,7 @@ export const BookCreateDialog = () => {
                                     <Select
                                         data={authors.map((author) => {
                                             return {
-                                                label: `${author.first_name} ${author.last_name}`,
+                                                label: `${author.firstName} ${author.lastName}`,
                                                 value: author.id,
                                             }
                                         })}

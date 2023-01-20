@@ -1,16 +1,23 @@
 import {
     Group,
-    Text,
     Paper,
     Stack,
+    Text,
     Title,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { useEffect, useState } from 'react'
-import { supabase, TABLES } from '../../shared/utils'
+import {
+    useEffect,
+    useState,
+} from 'react'
+
+import {
+    supabase,
+    TABLES,
+} from '../../shared/utils'
 
 import { BookCreateDialog } from './BookCreateDialog'
-import { BookType } from './Books.types'
+import type { BookType } from './Books.types'
 
 export const Books = () => {
     const [books, setBooks] = useState<BookType[]>([])

@@ -145,7 +145,7 @@ export const Sidebar = () => {
                                     fontWeight: 500,
                                 })}
                             >
-                                {currentUser?.first_name}
+                                {currentUser?.firstName}
                             </Text>
                             <Text
                                 sx={(theme) => ({
@@ -153,7 +153,7 @@ export const Sidebar = () => {
                                     fontSize: theme.fontSizes.xs,
                                 })}
                             >
-                                {currentUser?.last_name}
+                                {currentUser?.lastName}
                             </Text>
                         </Stack>
                     </Group>

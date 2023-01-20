@@ -28,7 +28,7 @@ export const Authors = () => {
         void supabase
             .from(TABLES.authors)
             .select('*')
-            .order('first_name')
+            .order('firstName')
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
@@ -89,9 +89,9 @@ export const Authors = () => {
                             >
                                 <Group>
                                     <Text>
-                                        {author.first_name}
+                                        {author.firstName}
                                         {' '}
-                                        {author.last_name}
+                                        {author.lastName}
                                     </Text>
                                 </Group>
                                 <Group>

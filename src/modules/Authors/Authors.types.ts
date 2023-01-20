@@ -1,5 +1,5 @@
 export type AuthorType = {
-    first_name: string
+    firstName: string
     id: string
-    last_name: string
+    lastName: string
 }

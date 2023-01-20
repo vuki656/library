@@ -42,8 +42,8 @@ export const AuthorCreatDialog = (props: AuthorCreatDialogProps) => {
         void supabase
             .from(TABLES.authors)
             .insert({
-                first_name: formValue.firstName,
-                last_name: formValue.lastName,
+                firstName: formValue.firstName,
+                lastName: formValue.lastName,
             })
             .then((response) => {
                 if (response.error) {

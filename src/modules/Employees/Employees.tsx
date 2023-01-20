@@ -95,9 +95,9 @@ export const Employees = () => {
                                         src=""
                                     />
                                     <Text>
-                                        {employee.first_name}
+                                        {employee.firstName}
                                         {' '}
-                                        {employee.last_name}
+                                        {employee.lastName}
                                     </Text>
                                 </Group>
                                 <Group>

@@ -39,9 +39,9 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
     } = useForm<AuthorUpdateDialogFormValueType>({
         resolver: zodResolver(authorUpdateValidation),
         values: {
-            firstName: author.first_name,
+            firstName: author.firstName,
             id: author.id,
-            lastName: author.last_name,
+            lastName: author.lastName,
         },
     })
 
@@ -49,8 +49,8 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
         void supabase
             .from(TABLES.authors)
             .update({
-                first_name: formValue.firstName,
-                last_name: formValue.lastName,
+                firstName: formValue.firstName,
+                lastName: formValue.lastName,
             })
             .eq('id', author.id)
             .then((response) => {

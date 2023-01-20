@@ -69,7 +69,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                     Are you sure you want to delete
                     {' '}
                     <strong>
-                        {`${employee.first_name} ${employee.last_name}`}
+                        {`${employee.firstName} ${employee.lastName}`}
                     </strong>
                     ?
                 </Text>
