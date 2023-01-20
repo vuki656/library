@@ -1,9 +1,9 @@
 import {
+    ActionIcon,
     Button,
     Group,
     Modal,
     Text,
-    ThemeIcon,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
@@ -54,12 +54,13 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
 
     return (
         <>
-            <ThemeIcon
+            <ActionIcon
+                color="blue"
                 onClick={setIsOpen.open}
                 variant="light"
             >
                 <IconTrash size={20} />
-            </ThemeIcon>
+            </ActionIcon>
             <Modal
                 onClose={setIsOpen.close}
                 opened={isOpen}

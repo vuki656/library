@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+    ActionIcon,
     Button,
     Modal,
     Stack,
     TextInput,
-    ThemeIcon,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
@@ -80,12 +80,13 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
 
     return (
         <>
-            <ThemeIcon
+            <ActionIcon
+                color="blue"
                 onClick={setIsOpen.open}
                 variant="light"
             >
                 <IconPencil size={20} />
-            </ThemeIcon>
+            </ActionIcon>
             <Modal
                 onClose={setIsOpen.close}
                 opened={isOpen}
@@ -107,9 +108,7 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
                             placeholder="Author last name"
                             withAsterisk={true}
                         />
-                        <Button
-                            type="submit"
-                        >
+                        <Button type="submit">
                             Create
                         </Button>
                     </Stack>

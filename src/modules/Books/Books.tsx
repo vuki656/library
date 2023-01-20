@@ -90,21 +90,11 @@ export const Books = () => {
                                         {book.name}
                                     </Text>
                                 </Group>
-                                {/* <Group> */}
-                                {/*     <ThemeIcon variant="light"> */}
-                                {/*         <IconPencil size={20} /> */}
-                                {/*     </ThemeIcon> */}
-                                {/*     <EmployeeDeleteDialogDialog */}
-                                {/*         employee={book} */}
-                                {/*         onSubmit={fetchBooks} */}
-                                {/*     /> */}
-                                {/* </Group> */}
                             </Group>
                         </Paper>
                     )
                 })}
             </Stack>
-
         </Stack>
     )
 }

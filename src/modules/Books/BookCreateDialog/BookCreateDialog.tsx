@@ -40,9 +40,8 @@ export const BookCreateDialog = () => {
         formState,
         handleSubmit,
         register,
-        reset,
     } = useForm<BookCreateFormValueType>({
-        defaultValues: { // TODO: default value not passed to form field
+        defaultValues: {
             releaseDate: new Date().toISOString(),
         },
         resolver: zodResolver(bookValidation),
@@ -70,7 +69,7 @@ export const BookCreateDialog = () => {
     }
 
     useEffect(() => {
-        fetchAuthors()
+        void fetchAuthors()
     }, [])
 
     const onSubmit = async (formValue: BookCreateFormValueType) => {

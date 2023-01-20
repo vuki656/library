@@ -1,10 +1,10 @@
 import {
+    ActionIcon,
     Avatar,
     Group,
     Paper,
     Stack,
     Text,
-    ThemeIcon,
     Title,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
@@ -102,9 +102,12 @@ export const Employees = () => {
                                     </Text>
                                 </Group>
                                 <Group>
-                                    <ThemeIcon variant="light">
+                                    <ActionIcon
+                                        color="blue"
+                                        variant="light"
+                                    >
                                         <IconPencil size={20} />
-                                    </ThemeIcon>
+                                    </ActionIcon>
                                     <EmployeeDeleteDialogDialog
                                         employee={employee}
                                         onSubmit={fetchEmployees}
