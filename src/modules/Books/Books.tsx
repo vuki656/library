@@ -26,6 +26,7 @@ export const Books = () => {
         void supabase
             .from(TABLES.books)
             .select('*')
+            .order('name')
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
