@@ -37,12 +37,12 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
         register,
         reset,
     } = useForm<AuthorUpdateDialogFormValueType>({
-        defaultValues: {
+        resolver: zodResolver(authorUpdateValidation),
+        values: {
             firstName: author.first_name,
             id: author.id,
             lastName: author.last_name,
         },
-        resolver: zodResolver(authorUpdateValidation),
     })
 
     const onSubmit = (formValue: AuthorUpdateDialogFormValueType) => {
