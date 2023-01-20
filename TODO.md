@@ -6,4 +6,3 @@
 - [ ] No employee update function
 - [ ] Author update dialog doesnt refresh after update
     - Open dialog, change, update, open again => old value will be there
-- [ ] Loading states

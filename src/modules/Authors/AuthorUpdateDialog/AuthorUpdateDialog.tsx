@@ -108,7 +108,6 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
                             withAsterisk={true}
                         />
                         <Button
-                            loading={false}
                             type="submit"
                         >
                             Create

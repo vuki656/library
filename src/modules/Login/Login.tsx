@@ -93,7 +93,6 @@ export const Login = () => {
                     </Stack>
                     <Button
                         fullWidth={true}
-                        loading={false}
                         type="submit"
                     >
                         Login

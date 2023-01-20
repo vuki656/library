@@ -136,7 +136,6 @@ export const EmployeeCreateDialog = (props: EmployeeCreateDialogProps) => {
                             withAsterisk={true}
                         />
                         <Button
-                            loading={false}
                             type="submit"
                         >
                             Create

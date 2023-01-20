@@ -34,7 +34,6 @@ export const BookCreateDialog = () => {
     const [isOpen, setIsOpen] = useDisclosure(false)
 
     const [authors, setAuthors] = useState<AuthorType[]>([])
-    const [loading, setLoading] = useState(false)
 
     const {
         control,
@@ -75,8 +74,6 @@ export const BookCreateDialog = () => {
     }, [])
 
     const onSubmit = async (formValue: BookCreateFormValueType) => {
-        setLoading(true)
-
         await supabase
             .from(TABLES.books)
             .insert({
@@ -99,8 +96,6 @@ export const BookCreateDialog = () => {
                 }
 
                 await fetchAuthors()
-
-                setLoading(false)
             })
     }
 
@@ -172,10 +167,7 @@ export const BookCreateDialog = () => {
                                 )
                             }}
                         />
-                        <Button
-                            loading={false}
-                            type="submit"
-                        >
+                        <Button type="submit">
                             Create
                         </Button>
                     </Stack>
