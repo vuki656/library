@@ -7,7 +7,7 @@ import {
     TextInput,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconPassword, IconPencil } from '@tabler/icons'
+import { IconPassword } from '@tabler/icons'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -38,7 +38,7 @@ export const EmployeeChangePasswordDialog = (props: EmployeeChangePasswordDialog
         resolver: zodResolver(employeePasswordValidation),
     })
 
-    const onSubmit = async (formValue: EmployeeChangePasswordFormValueType) => {
+    const onSubmit = (formValue: EmployeeChangePasswordFormValueType) => {
         void supabase
             .auth
             .updateUser({
@@ -82,9 +82,9 @@ export const EmployeeChangePasswordDialog = (props: EmployeeChangePasswordDialog
     return (
         <>
             <ActionIcon
+                color="blue"
                 onClick={onOpen}
                 variant="light"
-                color="blue"
             >
                 <IconPassword />
             </ActionIcon>

@@ -50,7 +50,7 @@ export const Employees = () => {
     }
 
     const fetchCurrentEmployee = () => {
-        supabase
+        void supabase
             .auth
             .getUser()
             .then((response) => {
