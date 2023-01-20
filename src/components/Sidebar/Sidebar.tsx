@@ -29,7 +29,7 @@ import { SidebarButton } from '../SidebarButton'
 export const Sidebar = () => {
     const router = useRouter()
 
-    const [currentUser, setCurrentUser] = useState<EmployeeType | null>(null)
+    const [currentEmployee, setCurrentEmployee] = useState<EmployeeType | null>(null)
 
     const onLogout = () => {
         void supabase
@@ -40,19 +40,19 @@ export const Sidebar = () => {
             })
     }
 
-    const fetchCurrentUser = async () => {
-        if (currentUser) {
+    const fetchCurrentEmployee = async () => {
+        if (currentEmployee) {
             return
         }
 
-        const authCurrentUser = await supabase
+        const authCurrentEmployee = await supabase
             .auth
             .getUser()
 
         void supabase
             .from(TABLES.employees)
             .select('*')
-            .eq('id', authCurrentUser.data.user?.id)
+            .eq('id', authCurrentEmployee.data.user?.id)
             .single()
             .then((response) => {
                 if (response.error) {
@@ -61,12 +61,12 @@ export const Sidebar = () => {
                     return
                 }
 
-                setCurrentUser(response.data)
+                setCurrentEmployee(response.data)
             })
     }
 
     useEffect(() => {
-        void fetchCurrentUser()
+        void fetchCurrentEmployee()
     }, [])
 
     return (
@@ -146,9 +146,9 @@ export const Sidebar = () => {
                                 })}
                             >
                                 <Group>
-                                    {currentUser?.firstName}
+                                    {currentEmployee?.firstName}
                                     {' '}
-                                    {currentUser?.lastName}
+                                    {currentEmployee?.lastName}
                                 </Group>
                             </Text>
                             <Text
@@ -157,7 +157,7 @@ export const Sidebar = () => {
                                     fontSize: theme.fontSizes.xs,
                                 })}
                             >
-                                {currentUser?.email}
+                                {currentEmployee?.email}
                             </Text>
                         </Stack>
                     </Group>

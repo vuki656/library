@@ -4,7 +4,6 @@
     - Maybe at the end where we "optimize stuff"
     - Forms as well
 - [ ] Replace useDisclosure with regular state
-- [ ] Rename currentUser to currentEmployee
 - [ ] Make confirm dialog look better
 
 NEXT
