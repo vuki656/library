@@ -11,4 +11,4 @@ BACKLOG
 
 NEXT
 
--   [ ] Book delete
+-   [ ] Delete employee from auth

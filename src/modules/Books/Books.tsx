@@ -17,6 +17,7 @@ import {
 } from '../../shared/utils'
 
 import { BookCreateDialog } from './BookCreateDialog'
+import { BookDeleteDialog } from './BookDeleteDialog'
 import type { BookType } from './Books.types'
 
 export const Books = () => {
@@ -90,6 +91,10 @@ export const Books = () => {
                                         {book.name}
                                     </Text>
                                 </Group>
+                                <BookDeleteDialog
+                                    book={book}
+                                    onSubmit={fetchBooks}
+                                />
                             </Group>
                         </Paper>
                     )

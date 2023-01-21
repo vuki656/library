@@ -71,14 +71,6 @@ export const BookCreateDialog = () => {
         void fetchAuthors()
     }, [])
 
-    const onClose = () => {
-        setIsOpen(false)
-    }
-
-    const onOpen = () => {
-        setIsOpen(true)
-    }
-
     const onSubmit = async (formValue: BookCreateFormValueType) => {
         await supabase
             .from(TABLES.books)
@@ -103,6 +95,14 @@ export const BookCreateDialog = () => {
 
                 await fetchAuthors()
             })
+    }
+
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    const onOpen = () => {
+        setIsOpen(true)
     }
 
     return (

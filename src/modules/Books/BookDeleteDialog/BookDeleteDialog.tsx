@@ -14,11 +14,11 @@ import {
     TABLES,
 } from '../../../shared/utils'
 
-import type { EmployeeDeleteDialogProps } from './EmployeeDeleteDialog.types'
+import type { BookDeleteDialogProps } from './BookDeleteDialog.types'
 
-export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => {
+export const BookDeleteDialog = (props: BookDeleteDialogProps) => {
     const {
-        employee,
+        book,
         onSubmit,
     } = props
 
@@ -26,14 +26,14 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
 
     const onDelete = () => {
         void supabase
-            .from(TABLES.employees)
+            .from(TABLES.books)
             .delete()
-            .eq('id', employee.id)
+            .eq('id', book.id)
             .then((response) => {
                 if (response.error) {
                     showNotification({
                         color: 'red',
-                        message: 'Error deleting employee',
+                        message: 'Error deleting book',
                         title: 'Error',
                     })
 
@@ -42,7 +42,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
 
                 showNotification({
                     color: 'green',
-                    message: 'Employee deleted successfully',
+                    message: 'Book deleted successfully',
                     title: 'Success',
                 })
 
@@ -78,7 +78,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                     Are you sure you want to delete
                     {' '}
                     <strong>
-                        {`${employee.firstName} ${employee.lastName}`}
+                        {`${book.name}`}
                     </strong>
                     {' '}
                     ?
