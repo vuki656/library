@@ -1,5 +1,4 @@
 import {
-    Avatar,
     Divider,
     Group,
     Navbar,
@@ -125,42 +124,33 @@ export const Sidebar = () => {
                         onClick={onLogout}
                     />
                     <Divider />
-                    <Group
+                    <Stack
+                        spacing={0}
                         sx={(theme) => ({
-                            alignItems: 'center',
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            padding: theme.spacing.xs,
+                            padding: theme.spacing.sm,
                         })}
                     >
-                        <Avatar
-                            radius="md"
-                            size={40}
-                            src=""
-                        />
-                        <Stack spacing={0}>
-                            <Text
-                                sx={(theme) => ({
-                                    fontSize: theme.fontSizes.sm,
-                                    fontWeight: 500,
-                                })}
-                            >
-                                <Group>
-                                    {currentEmployee?.firstName}
-                                    {' '}
-                                    {currentEmployee?.lastName}
-                                </Group>
-                            </Text>
-                            <Text
-                                sx={(theme) => ({
-                                    color: 'dimgray',
-                                    fontSize: theme.fontSizes.xs,
-                                })}
-                            >
-                                {currentEmployee?.email}
-                            </Text>
-                        </Stack>
-                    </Group>
+                        <Text
+                            sx={(theme) => ({
+                                fontSize: theme.fontSizes.sm,
+                                fontWeight: 500,
+                            })}
+                        >
+                            <Group>
+                                {currentEmployee?.firstName}
+                                {' '}
+                                {currentEmployee?.lastName}
+                            </Group>
+                        </Text>
+                        <Text
+                            sx={(theme) => ({
+                                color: 'dimgray',
+                                fontSize: theme.fontSizes.xs,
+                            })}
+                        >
+                            {currentEmployee?.email}
+                        </Text>
+                    </Stack>
                 </Stack>
             </Navbar.Section>
         </Navbar>

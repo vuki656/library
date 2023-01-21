@@ -1,5 +1,4 @@
 import {
-    Avatar,
     Group,
     Paper,
     Stack,
@@ -113,11 +112,6 @@ export const Employees = () => {
                                 })}
                             >
                                 <Group>
-                                    <Avatar
-                                        radius="md"
-                                        size={40}
-                                        src=""
-                                    />
                                     <Text>
                                         {employee.firstName}
                                         {' '}
