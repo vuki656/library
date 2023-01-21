@@ -1,41 +1,22 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-    Button,
-    Modal,
-    Select,
-    Stack,
-    TextInput,
-} from '@mantine/core'
+import { ActionIcon, Button, Modal, Select, Stack, TextInput } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { showNotification } from '@mantine/notifications'
-import { IconPlus } from '@tabler/icons'
+import { IconPencil } from '@tabler/icons'
 import dayjs from 'dayjs'
-import {
-    useEffect,
-    useState,
-} from 'react'
-import {
-    Controller,
-    useForm,
-} from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import authors from '../../../pages/authors'
 import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
+import { extractFormFieldErrors, supabase, TABLES } from '../../../shared/utils'
+import { AuthorType } from '../../Authors'
+import type { BookUpdateDialogProps, BookUpdateFormValueType } from './BookUpdateDialog.types'
+import { bookUpdateValidation } from './BookUpdateDialog.validation'
 
-import {
-    extractFormFieldErrors,
-    supabase,
-    TABLES,
-} from '../../../shared/utils'
-import type { AuthorType } from '../../Authors'
-
-import type {
-    BookCreateDialogProps,
-    BookCreateFormValueType,
-} from './BookCreateDialog.types'
-import { bookCreateValidation } from './BookCreateDialog.validation'
-
-export const BookCreateDialog = (props: BookCreateDialogProps) => {
+export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
     const {
         onSubmit: onSubmitProp,
+        book,
     } = props
 
     const [isOpen, setIsOpen] = useState(false)
@@ -47,12 +28,51 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
         formState,
         handleSubmit,
         register,
-    } = useForm<BookCreateFormValueType>({
-        defaultValues: {
-            releaseDate: new Date(),
+    } = useForm<BookUpdateFormValueType>({
+        values: {
+            pagesCount: book.pageCount,
+            id: book.id,
+            name: book.name,
+            releaseDate: book.releaseDate,
+            author: book.author.id,
         },
-        resolver: zodResolver(bookCreateValidation),
+        resolver: zodResolver(bookUpdateValidation),
     })
+
+    const onSubmit = (formValue: BookUpdateFormValueType) => {
+        void supabase
+            .from(TABLES.books)
+            .update({
+                authorFk: formValue.author,
+                pageCount: formValue.pagesCount,
+                releaseDate: formValue.releaseDate.toDateString(),
+                name: formValue.name,
+            })
+            .eq('id', formValue.id)
+            .then((response) => {
+                if (response.error) {
+                    console.error(response.error)
+
+                    showNotification({
+                        color: 'red',
+                        message: 'Error updating employee',
+                        title: 'Error',
+                    })
+
+                    return
+                }
+
+                onSubmitProp()
+
+                setIsOpen(false)
+
+                showNotification({
+                    color: 'green',
+                    message: 'Employee updated successfully',
+                    title: 'Success',
+                })
+            })
+    }
 
     const fetchAuthors = async () => {
         await supabase
@@ -79,34 +99,6 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
         void fetchAuthors()
     }, [])
 
-    const onSubmit = async (formValue: BookCreateFormValueType) => {
-        await supabase
-            .from(TABLES.books)
-            .insert({
-                authorFk: formValue.author,
-                name: formValue.name,
-                pageCount: formValue.pagesCount,
-                releaseDate: formValue.releaseDate.toDateString(),
-            })
-            .then(async (response) => {
-                if (response.error) {
-                    console.error(response.error)
-
-                    showNotification({
-                        color: 'red',
-                        message: 'Error creating book',
-                        title: 'Error',
-                    })
-
-                    return
-                }
-
-                onSubmitProp()
-
-                setIsOpen(false)
-            })
-    }
-
     const onClose = () => {
         setIsOpen(false)
     }
@@ -117,16 +109,17 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
 
     return (
         <>
-            <Button
-                leftIcon={<IconPlus size={DEFAULT_ICON_SIZE} />}
+            <ActionIcon
+                color="blue"
+                variant="light"
                 onClick={onOpen}
             >
-                Create
-            </Button>
+                <IconPencil size={DEFAULT_ICON_SIZE} />
+            </ActionIcon>
             <Modal
                 onClose={onClose}
                 opened={isOpen}
-                title="Create Book"
+                title="Update Book"
             >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
@@ -184,7 +177,7 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
                             }}
                         />
                         <Button type="submit">
-                            Create
+                            Update
                         </Button>
                     </Stack>
                 </form>

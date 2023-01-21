@@ -15,10 +15,12 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
+import { AuthorType } from '../Authors'
 
 import { BookCreateDialog } from './BookCreateDialog'
 import { BookDeleteDialog } from './BookDeleteDialog'
 import type { BookType } from './Books.types'
+import { BookUpdateDialog } from './BookUpdateDialog'
 
 export const Books = () => {
     const [books, setBooks] = useState<BookType[]>([])
@@ -26,7 +28,7 @@ export const Books = () => {
     const fetchBooks = () => {
         void supabase
             .from(TABLES.books)
-            .select('*')
+            .select('*, author:authors(*)')
             .order('name')
             .then((response) => {
                 if (response.error) {
@@ -41,7 +43,15 @@ export const Books = () => {
                     return
                 }
 
-                setBooks(response.data)
+                setBooks(response.data.map((book) => {
+                    return {
+                        id: book.id,
+                        name: book.name,
+                        pageCount: book.pageCount,
+                        releaseDate: new Date(book.releaseDate),
+                        author: book.author as AuthorType,
+                    }
+                }))
             })
     }
 
@@ -91,10 +101,16 @@ export const Books = () => {
                                         {book.name}
                                     </Text>
                                 </Group>
-                                <BookDeleteDialog
-                                    book={book}
-                                    onSubmit={fetchBooks}
-                                />
+                                <Group>
+                                    <BookUpdateDialog
+                                        book={book}
+                                        onSubmit={fetchBooks}
+                                    />
+                                    <BookDeleteDialog
+                                        book={book}
+                                        onSubmit={fetchBooks}
+                                    />
+                                </Group>
                             </Group>
                         </Paper>
                     )
