@@ -1,3 +1,1 @@
-import { memberValidation } from '../Members.validation'
-
-export const memberCreateValidation = memberValidation
+export { memberValidation as memberCreateValidation, } from '../Members.validation'

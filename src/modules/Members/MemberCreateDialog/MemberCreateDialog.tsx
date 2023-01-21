@@ -123,8 +123,8 @@ export const MemberCreateDialog = (props: MemberCreatDialogProps) => {
                             {...register('email')}
                             {...extractFormFieldErrors(formState.errors.email)}
                             label="Email"
-                            type="email"
                             placeholder="Member email"
+                            type="email"
                             withAsterisk={true}
                         />
                         <TextInput
