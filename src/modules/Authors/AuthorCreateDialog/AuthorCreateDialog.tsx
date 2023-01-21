@@ -18,12 +18,12 @@ import {
 } from '../../../shared/utils'
 
 import type {
-    AuthorCreatDialogProps,
     AuthorCreateDialogFormValueType,
+    AuthorCreateDialogProps,
 } from './AuthorCreateDialog.types'
 import { authorValidation } from './AuthorCreateDialog.validation'
 
-export const AuthorCreatDialog = (props: AuthorCreatDialogProps) => {
+export const AuthorCreateDialog = (props: AuthorCreateDialogProps) => {
     const {
         onSubmit: onSubmitProp,
     } = props

@@ -4,6 +4,6 @@ import type { authorValidation } from './AuthorCreateDialog.validation'
 
 export type AuthorCreateDialogFormValueType = z.infer<typeof authorValidation>
 
-export type AuthorCreatDialogProps = {
+export type AuthorCreateDialogProps = {
     onSubmit(): void
 }

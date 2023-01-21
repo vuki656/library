@@ -4,6 +4,6 @@ import type { memberCreateValidation } from './MemberCreateDialog.validation'
 
 export type MemberCreateDialogFormValueType = z.infer<typeof memberCreateValidation>
 
-export type MemberCreatDialogProps = {
+export type MemberCreateDialogProps = {
     onSubmit(): void
 }

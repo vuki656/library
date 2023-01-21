@@ -16,7 +16,7 @@ import {
     TABLES,
 } from '../../shared/utils'
 
-import { AuthorCreatDialog } from './AuthorCreateDialog'
+import { AuthorCreateDialog } from './AuthorCreateDialog'
 import { AuthorDeleteDialog } from './AuthorDeleteDialog'
 import type { AuthorType } from './Authors.types'
 import { AuthorUpdateDialog } from './AuthorUpdateDialog'
@@ -66,7 +66,7 @@ export const Authors = () => {
                     <Title order={3}>
                         Authors
                     </Title>
-                    <AuthorCreatDialog onSubmit={fetchAuthors} />
+                    <AuthorCreateDialog onSubmit={fetchAuthors} />
                 </Group>
             </Paper>
             <Stack

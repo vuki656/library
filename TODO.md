@@ -4,6 +4,7 @@
 -   [ ] Delete user from auth - needs some weird permission
 -   [ ] Maybe c/p validation schemas at first as well to make it simple?
 -   [ ] Upload book image
+-   [ ] Search - maybe?
 
 # MAYBE
 
@@ -12,11 +13,8 @@
 
 # BACKLOG
 
-- [ ] Author validation isn't setup like others
-- [ ] Fix `creatDialog` typos
-- [ ] Group sidebar items
-- [ ] Add type props to input fields
-- [ ] Search
+-   [ ] Author validation isn't setup like others
+-   [ ] Group sidebar items
+-   [ ] Add type props to input fields
 
 # NEXT
-- [ ] Members
