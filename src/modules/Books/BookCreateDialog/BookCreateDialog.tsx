@@ -18,8 +18,8 @@ import {
     Controller,
     useForm,
 } from 'react-hook-form'
-import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 import {
     extractFormFieldErrors,
     supabase,
@@ -54,8 +54,8 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
         resolver: zodResolver(bookCreateValidation),
     })
 
-    const fetchAuthors = async () => {
-        await supabase
+    const fetchAuthors = () => {
+        void supabase
             .from(TABLES.authors)
             .select('*')
             .then((response) => {
@@ -76,11 +76,11 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
     }
 
     useEffect(() => {
-        void fetchAuthors()
+        fetchAuthors()
     }, [])
 
-    const onSubmit = async (formValue: BookCreateFormValueType) => {
-        await supabase
+    const onSubmit = (formValue: BookCreateFormValueType) => {
+        void supabase
             .from(TABLES.books)
             .insert({
                 authorFk: formValue.author,
@@ -88,7 +88,7 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
                 pageCount: formValue.pagesCount,
                 releaseDate: formValue.releaseDate.toDateString(),
             })
-            .then(async (response) => {
+            .then((response) => {
                 if (response.error) {
                     console.error(response.error)
 

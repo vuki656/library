@@ -1,3 +1,1 @@
-import { bookValidation } from '../Books.validation'
-
-export const bookCreateValidation = bookValidation
+export { bookValidation as bookCreateValidation, } from '../Books.validation'

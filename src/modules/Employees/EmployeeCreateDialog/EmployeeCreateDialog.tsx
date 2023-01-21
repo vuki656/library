@@ -9,8 +9,8 @@ import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 import {
     extractFormFieldErrors,
     supabase,

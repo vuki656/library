@@ -110,7 +110,7 @@ export const Sidebar = () => {
                     <Link href="/authors">
                         <SidebarButton
                             color="red"
-                            icon={<IconUsers size={DEFAULT_ICON_SIZE}  />}
+                            icon={<IconUsers size={DEFAULT_ICON_SIZE} />}
                             name="Authors"
                         />
                     </Link>

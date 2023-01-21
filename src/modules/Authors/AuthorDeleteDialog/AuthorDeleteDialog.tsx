@@ -8,8 +8,8 @@ import {
 import { showNotification } from '@mantine/notifications'
 import { IconTrash } from '@tabler/icons'
 import { useState } from 'react'
-import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 import {
     supabase,
     TABLES,

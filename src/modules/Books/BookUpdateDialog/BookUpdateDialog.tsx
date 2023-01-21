@@ -1,22 +1,43 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ActionIcon, Button, Modal, Select, Stack, TextInput } from '@mantine/core'
+import {
+    ActionIcon,
+    Button,
+    Modal,
+    Select,
+    Stack,
+    TextInput,
+} from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { showNotification } from '@mantine/notifications'
 import { IconPencil } from '@tabler/icons'
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import authors from '../../../pages/authors'
+import {
+    useEffect,
+    useState,
+} from 'react'
+import {
+    Controller,
+    useForm,
+} from 'react-hook-form'
+
 import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
-import { extractFormFieldErrors, supabase, TABLES } from '../../../shared/utils'
-import { AuthorType } from '../../Authors'
-import type { BookUpdateDialogProps, BookUpdateFormValueType } from './BookUpdateDialog.types'
+import {
+    extractFormFieldErrors,
+    supabase,
+    TABLES,
+} from '../../../shared/utils'
+import type { AuthorType } from '../../Authors'
+
+import type {
+    BookUpdateDialogProps,
+    BookUpdateFormValueType,
+} from './BookUpdateDialog.types'
 import { bookUpdateValidation } from './BookUpdateDialog.validation'
 
 export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
     const {
-        onSubmit: onSubmitProp,
         book,
+        onSubmit: onSubmitProp,
     } = props
 
     const [isOpen, setIsOpen] = useState(false)
@@ -29,14 +50,14 @@ export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
         handleSubmit,
         register,
     } = useForm<BookUpdateFormValueType>({
+        resolver: zodResolver(bookUpdateValidation),
         values: {
-            pagesCount: book.pageCount,
+            author: book.author.id,
             id: book.id,
             name: book.name,
+            pagesCount: book.pageCount,
             releaseDate: book.releaseDate,
-            author: book.author.id,
         },
-        resolver: zodResolver(bookUpdateValidation),
     })
 
     const onSubmit = (formValue: BookUpdateFormValueType) => {
@@ -44,9 +65,9 @@ export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
             .from(TABLES.books)
             .update({
                 authorFk: formValue.author,
+                name: formValue.name,
                 pageCount: formValue.pagesCount,
                 releaseDate: formValue.releaseDate.toDateString(),
-                name: formValue.name,
             })
             .eq('id', formValue.id)
             .then((response) => {
@@ -111,8 +132,8 @@ export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
         <>
             <ActionIcon
                 color="blue"
-                variant="light"
                 onClick={onOpen}
+                variant="light"
             >
                 <IconPencil size={DEFAULT_ICON_SIZE} />
             </ActionIcon>

@@ -15,7 +15,7 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
-import { AuthorType } from '../Authors'
+import type { AuthorType } from '../Authors'
 
 import { BookCreateDialog } from './BookCreateDialog'
 import { BookDeleteDialog } from './BookDeleteDialog'
@@ -45,11 +45,11 @@ export const Books = () => {
 
                 setBooks(response.data.map((book) => {
                     return {
+                        author: book.author as AuthorType,
                         id: book.id,
                         name: book.name,
                         pageCount: book.pageCount,
                         releaseDate: new Date(book.releaseDate),
-                        author: book.author as AuthorType,
                     }
                 }))
             })
