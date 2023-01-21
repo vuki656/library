@@ -14,10 +14,15 @@ module.exports = {
         "dist",
         ".eslintrc.js",
         "next.config.js",
-        "src/shared/types/supabase.ts"
+        "src/shared/types/supabase.ts",
     ],
     rules: {
-        '@next/next/google-font-display': 'off',
-        'no-console': 'off'
-    }
-}
+        "@next/next/google-font-display": "off",
+        "no-console": [
+            "error",
+            {
+                allow: ["warn", "error"],
+            },
+        ],
+    },
+};
