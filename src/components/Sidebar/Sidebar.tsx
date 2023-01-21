@@ -19,6 +19,7 @@ import {
 } from 'react'
 
 import type { EmployeeType } from '../../modules'
+import { DEFAULT_ICON_SIZE } from '../../shared/constants'
 import {
     supabase,
     TABLES,
@@ -95,21 +96,21 @@ export const Sidebar = () => {
                     <Link href="/books">
                         <SidebarButton
                             color="green"
-                            icon={<IconBook />}
+                            icon={<IconBook size={DEFAULT_ICON_SIZE} />}
                             name="Books"
                         />
                     </Link>
                     <Link href="/employees">
                         <SidebarButton
                             color="blue"
-                            icon={<IconUsers />}
+                            icon={<IconUsers size={DEFAULT_ICON_SIZE} />}
                             name="Employees"
                         />
                     </Link>
                     <Link href="/authors">
                         <SidebarButton
                             color="red"
-                            icon={<IconUsers />}
+                            icon={<IconUsers size={DEFAULT_ICON_SIZE}  />}
                             name="Authors"
                         />
                     </Link>
@@ -119,7 +120,7 @@ export const Sidebar = () => {
                 <Stack spacing={10}>
                     <SidebarButton
                         color="red"
-                        icon={<IconLogout />}
+                        icon={<IconLogout size={DEFAULT_ICON_SIZE} />}
                         name="Log Out"
                         onClick={onLogout}
                     />

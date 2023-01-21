@@ -2,8 +2,8 @@ import { z } from 'zod'
 
 import { employeeValidation } from '../Employees.validation'
 
-export const employeeUpdateValidation = employeeValidation.and(
-    z.object({
-        id: z.string(),
-    })
-)
+const validation = z.object({
+    id: z.string(),
+})
+
+export const employeeUpdateValidation = employeeValidation.and(validation)

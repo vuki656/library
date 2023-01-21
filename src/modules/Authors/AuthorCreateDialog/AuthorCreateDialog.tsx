@@ -9,6 +9,7 @@ import { showNotification } from '@mantine/notifications'
 import { IconPlus } from '@tabler/icons'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
 import {
     extractFormFieldErrors,
@@ -81,7 +82,7 @@ export const AuthorCreatDialog = (props: AuthorCreatDialogProps) => {
     return (
         <>
             <Button
-                leftIcon={<IconPlus size={20} />}
+                leftIcon={<IconPlus size={DEFAULT_ICON_SIZE} />}
                 onClick={onOpen}
             >
                 Create

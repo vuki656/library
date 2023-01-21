@@ -8,6 +8,7 @@ import {
 import { showNotification } from '@mantine/notifications'
 import { IconTrash } from '@tabler/icons'
 import { useState } from 'react'
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
 import {
     supabase,
@@ -81,7 +82,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                 onClick={onOpen}
                 variant="light"
             >
-                <IconTrash size={20} />
+                <IconTrash size={DEFAULT_ICON_SIZE} />
             </ActionIcon>
             <Modal
                 onClose={onClose}

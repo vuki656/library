@@ -10,6 +10,7 @@ import { showNotification } from '@mantine/notifications'
 import { IconPencil } from '@tabler/icons'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
 import {
     extractFormFieldErrors,
@@ -35,7 +36,6 @@ export const EmployeeUpdateDialog = (props: EmployeeUpdateDialogProps) => {
         formState,
         handleSubmit,
         register,
-        reset,
     } = useForm<EmployeeUpdateFormValueType>({
         resolver: zodResolver(employeeUpdateValidation),
         values: {
@@ -72,8 +72,6 @@ export const EmployeeUpdateDialog = (props: EmployeeUpdateDialogProps) => {
 
                 setIsOpen(false)
 
-                reset()
-
                 showNotification({
                     color: 'green',
                     message: 'Employee updated successfully',
@@ -97,7 +95,7 @@ export const EmployeeUpdateDialog = (props: EmployeeUpdateDialogProps) => {
                 onClick={onOpen}
                 variant="light"
             >
-                <IconPencil />
+                <IconPencil size={DEFAULT_ICON_SIZE} />
             </ActionIcon>
             <Modal
                 onClose={onClose}

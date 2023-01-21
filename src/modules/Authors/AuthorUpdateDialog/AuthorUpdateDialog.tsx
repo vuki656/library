@@ -10,6 +10,7 @@ import { showNotification } from '@mantine/notifications'
 import { IconPencil } from '@tabler/icons'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
 import {
     extractFormFieldErrors,
@@ -35,7 +36,6 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
         formState,
         handleSubmit,
         register,
-        reset,
     } = useForm<AuthorUpdateDialogFormValueType>({
         resolver: zodResolver(authorUpdateValidation),
         values: {
@@ -68,8 +68,6 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
 
                 setIsOpen(false)
 
-                reset()
-
                 showNotification({
                     color: 'green',
                     message: 'Author updated successfully',
@@ -93,7 +91,7 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
                 onClick={onOpen}
                 variant="light"
             >
-                <IconPencil size={20} />
+                <IconPencil size={DEFAULT_ICON_SIZE} />
             </ActionIcon>
             <Modal
                 onClose={onClose}

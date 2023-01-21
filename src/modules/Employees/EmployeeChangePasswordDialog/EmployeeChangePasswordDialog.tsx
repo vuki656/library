@@ -10,6 +10,7 @@ import { showNotification } from '@mantine/notifications'
 import { IconPassword } from '@tabler/icons'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { DEFAULT_ICON_SIZE } from '../../../shared/constants'
 
 import {
     extractFormFieldErrors,
@@ -86,7 +87,7 @@ export const EmployeeChangePasswordDialog = (props: EmployeeChangePasswordDialog
                 onClick={onOpen}
                 variant="light"
             >
-                <IconPassword />
+                <IconPassword size={DEFAULT_ICON_SIZE} />
             </ActionIcon>
             <Modal
                 onClose={onClose}
