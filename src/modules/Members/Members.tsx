@@ -16,6 +16,7 @@ import {
     TABLES,
 } from '../../shared/utils'
 import { MemberCreateDialog } from './MemberCreateDialog'
+import { MemberDeleteDialog } from './MemberDeleteDialog'
 
 import type { MemberType } from './Members.types'
 import { MemberUpdateDialog } from './MemberUpdateDialog'
@@ -98,10 +99,10 @@ export const Members = () => {
                                         member={member}
                                         onSubmit={fetchMembers}
                                     />
-                                    {/* <MemberDeleteDialog */}
-                                    {/*     member={member} */}
-                                    {/*     onSubmit={fetchMembers} */}
-                                    {/* /> */}
+                                    <MemberDeleteDialog
+                                        member={member}
+                                        onSubmit={fetchMembers}
+                                    />
                                 </Group>
                             </Group>
                         </Paper>
