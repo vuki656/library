@@ -16,6 +16,7 @@
 - [ ] Fix `creatDialog` typos
 - [ ] Group sidebar items
 - [ ] Add type props to input fields
+- [ ] Search
 
 # NEXT
 - [ ] Members

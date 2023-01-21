@@ -19,14 +19,14 @@ import {
 } from '../../../shared/utils'
 
 import type {
-    AuthorUpdateDialogFormValueType,
-    AuthorUpdateDialogProps,
-} from './AuthorUpdateDialog.types'
-import { authorUpdateValidation } from './AuthorUpdateDialog.validation'
+    MemberUpdateDialogFormValueType,
+    MemberUpdateDialogProps,
+} from './MemberUpdateDialog.types'
+import { memberUpdateValidation } from './MemberUpdateDialog.validation'
 
-export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
+export const MemberUpdateDialog = (props: MemberUpdateDialogProps) => {
     const {
-        author,
+        member,
         onSubmit: onSubmitProp,
     } = props
 
@@ -36,28 +36,35 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
         formState,
         handleSubmit,
         register,
-    } = useForm<AuthorUpdateDialogFormValueType>({
-        resolver: zodResolver(authorUpdateValidation),
+    } = useForm<MemberUpdateDialogFormValueType>({
+        resolver: zodResolver(memberUpdateValidation),
         values: {
-            firstName: author.firstName,
-            id: author.id,
-            lastName: author.lastName,
+            address: member.address,
+            email: member.email,
+            firstName: member.firstName,
+            id: member.id,
+            lastName: member.lastName,
+            phoneNumber: member.phoneNumber,
         },
     })
 
-    const onSubmit = (formValue: AuthorUpdateDialogFormValueType) => {
+    const onSubmit = (formValue: MemberUpdateDialogFormValueType) => {
         void supabase
-            .from(TABLES.authors)
+            .from(TABLES.members)
             .update({
+                address: formValue.address,
+                email: formValue.email,
                 firstName: formValue.firstName,
+                id: formValue.id,
                 lastName: formValue.lastName,
+                phoneNumber: formValue.phoneNumber,
             })
-            .eq('id', author.id)
+            .eq('id', member.id)
             .then((response) => {
                 if (response.error) {
                     showNotification({
                         color: 'red',
-                        message: 'Error updating author',
+                        message: 'Error updating member',
                         title: 'Error',
                     })
 
@@ -70,7 +77,7 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
 
                 showNotification({
                     color: 'green',
-                    message: 'Author updated successfully',
+                    message: 'Member updated successfully',
                     title: 'Success',
                 })
             })
@@ -96,7 +103,7 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
             <Modal
                 onClose={onClose}
                 opened={isOpen}
-                title="Update Author"
+                title="Update Member"
             >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
@@ -104,14 +111,36 @@ export const AuthorUpdateDialog = (props: AuthorUpdateDialogProps) => {
                             {...register('firstName')}
                             {...extractFormFieldErrors(formState.errors.firstName)}
                             label="First Name"
-                            placeholder="Author first name"
+                            placeholder="Member first name"
                             withAsterisk={true}
                         />
                         <TextInput
                             {...register('lastName')}
                             {...extractFormFieldErrors(formState.errors.lastName)}
                             label="Last Name"
-                            placeholder="Author last name"
+                            placeholder="Member last name"
+                            withAsterisk={true}
+                        />
+                        <TextInput
+                            {...register('address')}
+                            {...extractFormFieldErrors(formState.errors.address)}
+                            label="Address"
+                            placeholder="Member address"
+                            withAsterisk={true}
+                        />
+                        <TextInput
+                            {...register('email')}
+                            {...extractFormFieldErrors(formState.errors.email)}
+                            label="Email"
+                            placeholder="Member email"
+                            type="email"
+                            withAsterisk={true}
+                        />
+                        <TextInput
+                            {...register('phoneNumber')}
+                            {...extractFormFieldErrors(formState.errors.phoneNumber)}
+                            label="Phone Number"
+                            placeholder="Member phone number"
                             withAsterisk={true}
                         />
                         <Button type="submit">

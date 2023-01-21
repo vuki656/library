@@ -18,6 +18,7 @@ import {
 import { MemberCreateDialog } from './MemberCreateDialog'
 
 import type { MemberType } from './Members.types'
+import { MemberUpdateDialog } from './MemberUpdateDialog'
 
 export const Members = () => {
     const [members, setMembers] = useState<MemberType[]>([])
@@ -92,16 +93,16 @@ export const Members = () => {
                                         {member.lastName}
                                     </Text>
                                 </Group>
-                                {/* <Group> */}
-                                {/*     <MemberUpdateDialog */}
-                                {/*         member={member} */}
-                                {/*         onSubmit={fetchMembers} */}
-                                {/*     /> */}
-                                {/*     <MemberDeleteDialog */}
-                                {/*         member={member} */}
-                                {/*         onSubmit={fetchMembers} */}
-                                {/*     /> */}
-                                {/* </Group> */}
+                                <Group>
+                                    <MemberUpdateDialog
+                                        member={member}
+                                        onSubmit={fetchMembers}
+                                    />
+                                    {/* <MemberDeleteDialog */}
+                                    {/*     member={member} */}
+                                    {/*     onSubmit={fetchMembers} */}
+                                    {/* /> */}
+                                </Group>
                             </Group>
                         </Paper>
                     )
