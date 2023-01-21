@@ -69,6 +69,35 @@ export interface Database {
           lastName?: string
         }
       }
+      members: {
+        Row: {
+          address: string
+          email: string
+          firstName: string
+          id: string
+          lastName: string
+          memberSince: string
+          phoneNumber: string
+        }
+        Insert: {
+          address: string
+          email: string
+          firstName: string
+          id?: string
+          lastName: string
+          memberSince: string
+          phoneNumber: string
+        }
+        Update: {
+          address?: string
+          email?: string
+          firstName?: string
+          id?: string
+          lastName?: string
+          memberSince?: string
+          phoneNumber?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

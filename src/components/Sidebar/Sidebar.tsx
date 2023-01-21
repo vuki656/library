@@ -114,6 +114,13 @@ export const Sidebar = () => {
                             name="Authors"
                         />
                     </Link>
+                    <Link href="/members">
+                        <SidebarButton
+                            color="orange"
+                            icon={<IconUsers size={DEFAULT_ICON_SIZE} />}
+                            name="Members"
+                        />
+                    </Link>
                 </Stack>
             </Navbar.Section>
             <Navbar.Section>
