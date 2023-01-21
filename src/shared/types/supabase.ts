@@ -29,6 +29,7 @@ export interface Database {
       books: {
         Row: {
           authorFk: string
+          borrowedByMemberFk: string | null
           id: string
           name: string
           pageCount: number
@@ -36,6 +37,7 @@ export interface Database {
         }
         Insert: {
           authorFk: string
+          borrowedByMemberFk?: string | null
           id?: string
           name: string
           pageCount: number
@@ -43,6 +45,7 @@ export interface Database {
         }
         Update: {
           authorFk?: string
+          borrowedByMemberFk?: string | null
           id?: string
           name?: string
           pageCount?: number

@@ -49,7 +49,7 @@ export const Books = () => {
                         id: book.id,
                         name: book.name,
                         pageCount: book.pageCount,
-                        releaseDate: new Date(book.releaseDate),
+                        releaseDate: book.releaseDate,
                     }
                 }))
             })

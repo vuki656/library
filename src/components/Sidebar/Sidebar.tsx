@@ -24,6 +24,7 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
+import { BorrowBookDialog } from '../BorrowBookDialog'
 import { SidebarButton } from '../SidebarButton'
 
 export const Sidebar = () => {
@@ -90,7 +91,14 @@ export const Sidebar = () => {
                 <Stack spacing={3}>
                     <Divider
                         sx={(theme) => ({
+                            marginBottom: theme.spacing.sm,
+                        })}
+                    />
+                    <BorrowBookDialog />
+                    <Divider
+                        sx={(theme) => ({
                             marginBottom: theme.spacing.md,
+                            marginTop: theme.spacing.sm,
                         })}
                     />
                     <Link href="/books">
