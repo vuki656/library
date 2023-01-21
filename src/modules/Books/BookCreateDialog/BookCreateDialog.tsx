@@ -26,10 +26,17 @@ import {
 } from '../../../shared/utils'
 import type { AuthorType } from '../../Authors'
 
-import type { BookCreateFormValueType } from './BookCreateDialog.types'
+import type {
+    BookCreateDialogProps,
+    BookCreateFormValueType,
+} from './BookCreateDialog.types'
 import { bookValidation } from './BookCreateDialog.validation'
 
-export const BookCreateDialog = () => {
+export const BookCreateDialog = (props: BookCreateDialogProps) => {
+    const {
+        onSubmit: onSubmitProp,
+    } = props
+
     const [isOpen, setIsOpen] = useState(false)
 
     const [authors, setAuthors] = useState<AuthorType[]>([])
@@ -41,10 +48,12 @@ export const BookCreateDialog = () => {
         register,
     } = useForm<BookCreateFormValueType>({
         defaultValues: {
-            releaseDate: new Date().toISOString(),
+            releaseDate: new Date(),
         },
         resolver: zodResolver(bookValidation),
     })
+
+    console.log(formState.errors)
 
     const fetchAuthors = async () => {
         await supabase
@@ -78,7 +87,7 @@ export const BookCreateDialog = () => {
                 authorFk: formValue.author,
                 name: formValue.name,
                 pageCount: formValue.pagesCount,
-                releaseDate: formValue.releaseDate,
+                releaseDate: formValue.releaseDate.toDateString(),
             })
             .then(async (response) => {
                 if (response.error) {
@@ -93,7 +102,9 @@ export const BookCreateDialog = () => {
                     return
                 }
 
-                await fetchAuthors()
+                onSubmitProp()
+
+                setIsOpen(false)
             })
     }
 

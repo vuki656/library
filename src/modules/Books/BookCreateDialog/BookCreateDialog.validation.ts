@@ -8,5 +8,5 @@ export const bookValidation = z.object({
         .string()
         .min(1, 'Must be at least 1 character'),
     pagesCount: z.number(),
-    releaseDate: z.string(),
+    releaseDate: z.date(),
 })

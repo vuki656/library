@@ -65,7 +65,7 @@ export const Books = () => {
                     <Title order={3}>
                         Books
                     </Title>
-                    <BookCreateDialog />
+                    <BookCreateDialog onSubmit={fetchBooks} />
                 </Group>
             </Paper>
             <Stack
