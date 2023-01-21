@@ -21,7 +21,7 @@ import type {
     AuthorCreateDialogFormValueType,
     AuthorCreateDialogProps,
 } from './AuthorCreateDialog.types'
-import { authorValidation } from './AuthorCreateDialog.validation'
+import { authorCreateValidation } from './AuthorCreateDialog.validation'
 
 export const AuthorCreateDialog = (props: AuthorCreateDialogProps) => {
     const {
@@ -36,7 +36,7 @@ export const AuthorCreateDialog = (props: AuthorCreateDialogProps) => {
         register,
         reset,
     } = useForm<AuthorCreateDialogFormValueType>({
-        resolver: zodResolver(authorValidation),
+        resolver: zodResolver(authorCreateValidation),
     })
 
     const onSubmit = (formValue: AuthorCreateDialogFormValueType) => {
