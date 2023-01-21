@@ -10,5 +10,3 @@ BACKLOG
 -   [ ] Can't delete author if he has books
 
 NEXT
-
--   [ ] Delete employee from auth

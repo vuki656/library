@@ -29,7 +29,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
             .from(TABLES.employees)
             .delete()
             .eq('id', employee.id)
-            .then((response) => {
+            .then(async (response) => {
                 if (response.error) {
                     showNotification({
                         color: 'red',
@@ -39,6 +39,20 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
 
                     return
                 }
+
+                await supabase
+                    .auth
+                    .admin
+                    .deleteUser(employee.id)
+                    .catch((error: unknown) => {
+                        console.error(error)
+
+                        showNotification({
+                            color: 'red',
+                            message: 'Error deleting employee',
+                            title: 'Error',
+                        })
+                    })
 
                 showNotification({
                     color: 'green',
