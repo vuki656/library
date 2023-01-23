@@ -86,7 +86,7 @@ export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
                 <Group position="right">
                     <Button
                         onClick={onClose}
-                        variant="outline"
+                        variant="default"
                     >
                         Cancel
                     </Button>

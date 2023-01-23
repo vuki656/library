@@ -4,6 +4,7 @@ import {
     Group,
     Modal,
     Text,
+    Tooltip,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { IconTrash } from '@tabler/icons'
@@ -20,6 +21,7 @@ import type { BookDeleteDialogProps } from './BookDeleteDialog.types'
 export const BookDeleteDialog = (props: BookDeleteDialogProps) => {
     const {
         book,
+        disabled,
         onSubmit,
     } = props
 
@@ -58,18 +60,27 @@ export const BookDeleteDialog = (props: BookDeleteDialogProps) => {
     }
 
     const onOpen = () => {
+        if (disabled) {
+            return
+        }
+
         setIsOpen(true)
     }
 
     return (
         <>
-            <ActionIcon
-                color="blue"
-                onClick={onOpen}
-                variant="light"
+            <Tooltip
+                disabled={!disabled}
+                label="Can't delete a book that is borrowed"
             >
-                <IconTrash size={DEFAULT_ICON_SIZE} />
-            </ActionIcon>
+                <ActionIcon
+                    color="blue"
+                    onClick={onOpen}
+                    variant="light"
+                >
+                    <IconTrash size={DEFAULT_ICON_SIZE} />
+                </ActionIcon>
+            </Tooltip>
             <Modal
                 onClose={onClose}
                 opened={isOpen}
@@ -87,7 +98,7 @@ export const BookDeleteDialog = (props: BookDeleteDialogProps) => {
                 <Group position="right">
                     <Button
                         onClick={onClose}
-                        variant="outline"
+                        variant="default"
                     >
                         Cancel
                     </Button>

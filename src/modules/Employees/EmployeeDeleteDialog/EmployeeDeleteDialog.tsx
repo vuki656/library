@@ -100,7 +100,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                 <Group position="right">
                     <Button
                         onClick={onClose}
-                        variant="outline"
+                        variant="default"
                     >
                         Cancel
                     </Button>
