@@ -147,83 +147,81 @@ export const BorrowBookDialog = () => {
             >
                 Borrow Book
             </Button>
-            {isOpen ? (
-                <Modal
-                    onClose={onClose}
-                    opened={isOpen}
-                    title="Borrow Book"
-                >
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Stack>
-                            <Controller
-                                control={control}
-                                name="bookId"
-                                render={(controller) => {
-                                    return (
-                                        <Select
-                                            clearable={true}
-                                            data={books.map((book) => {
-                                                return {
-                                                    disabled: Boolean(book.borrowedBy),
-                                                    label: book.name,
-                                                    value: book.id,
-                                                }
-                                            })}
-                                            label="Book"
-                                            onChange={(bookId) => {
-                                                controller.field.onChange(bookId)
-                                            }}
-                                            placeholder="Select a book"
-                                            searchable={true}
-                                            value={controller.field.value}
-                                            {...extractFormFieldErrors(controller.formState.errors.bookId)}
-                                        />
-                                    )
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name="memberId"
-                                render={(controller) => {
-                                    return (
-                                        <Select
-                                            clearable={true}
-                                            data={members.map((member) => {
-                                                return {
-                                                    label: `${member.firstName} ${member.lastName}`,
-                                                    value: member.id,
-                                                }
-                                            })}
-                                            label="Member"
-                                            onChange={(bookId) => {
-                                                controller.field.onChange(bookId)
-                                            }}
-                                            placeholder="Select a member"
-                                            searchable={true}
-                                            value={controller.field.value}
-                                            {...extractFormFieldErrors(controller.formState.errors.memberId)}
-                                        />
-                                    )
-                                }}
-                            />
-                            <Group position="right">
-                                <Button
-                                    onClick={onClose}
-                                    variant="outline"
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    color="blue"
-                                    type="submit"
-                                >
-                                    Confirm
-                                </Button>
-                            </Group>
-                        </Stack>
-                    </form>
-                </Modal>
-            ) : null}
+            <Modal
+                onClose={onClose}
+                opened={isOpen}
+                title="Borrow Book"
+            >
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Stack>
+                        <Controller
+                            control={control}
+                            name="bookId"
+                            render={(controller) => {
+                                return (
+                                    <Select
+                                        clearable={true}
+                                        data={books.map((book) => {
+                                            return {
+                                                disabled: Boolean(book.borrowedBy),
+                                                label: book.name,
+                                                value: book.id,
+                                            }
+                                        })}
+                                        label="Book"
+                                        onChange={(bookId) => {
+                                            controller.field.onChange(bookId)
+                                        }}
+                                        placeholder="Select a book"
+                                        searchable={true}
+                                        value={controller.field.value}
+                                        {...extractFormFieldErrors(controller.formState.errors.bookId)}
+                                    />
+                                )
+                            }}
+                        />
+                        <Controller
+                            control={control}
+                            name="memberId"
+                            render={(controller) => {
+                                return (
+                                    <Select
+                                        clearable={true}
+                                        data={members.map((member) => {
+                                            return {
+                                                label: `${member.firstName} ${member.lastName}`,
+                                                value: member.id,
+                                            }
+                                        })}
+                                        label="Member"
+                                        onChange={(bookId) => {
+                                            controller.field.onChange(bookId)
+                                        }}
+                                        placeholder="Select a member"
+                                        searchable={true}
+                                        value={controller.field.value}
+                                        {...extractFormFieldErrors(controller.formState.errors.memberId)}
+                                    />
+                                )
+                            }}
+                        />
+                        <Group position="right">
+                            <Button
+                                onClick={onClose}
+                                variant="outline"
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                color="blue"
+                                type="submit"
+                            >
+                                Confirm
+                            </Button>
+                        </Group>
+                    </Stack>
+                </form>
+            </Modal>
         </>
     )
 }
