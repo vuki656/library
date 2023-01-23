@@ -15,6 +15,7 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
+import { BookType } from '../Books'
 
 import { AuthorCreateDialog } from './AuthorCreateDialog'
 import { AuthorDeleteDialog } from './AuthorDeleteDialog'
@@ -27,7 +28,7 @@ export const Authors = () => {
     const fetchAuthors = () => {
         void supabase
             .from(TABLES.authors)
-            .select('*')
+            .select('*, books(*)')
             .order('firstName')
             .then((response) => {
                 if (response.error) {
@@ -42,7 +43,14 @@ export const Authors = () => {
                     return
                 }
 
-                setAuthors(response.data)
+                const authors = response.data.map((author) => {
+                    return {
+                        ...author,
+                        hasBooks: Boolean(author.books) 
+                    }
+                })
+
+                setAuthors(authors)
             })
     }
 
@@ -87,13 +95,11 @@ export const Authors = () => {
                                     padding: theme.spacing.md,
                                 })}
                             >
-                                <Group>
-                                    <Text>
-                                        {author.firstName}
-                                        {' '}
-                                        {author.lastName}
-                                    </Text>
-                                </Group>
+                                <Text>
+                                    {author.firstName}
+                                    {' '}
+                                    {author.lastName}
+                                </Text>
                                 <Group>
                                     <AuthorUpdateDialog
                                         author={author}
@@ -102,6 +108,7 @@ export const Authors = () => {
                                     <AuthorDeleteDialog
                                         author={author}
                                         onSubmit={fetchAuthors}
+                                        disabled={author.hasBooks}
                                     />
                                 </Group>
                             </Group>

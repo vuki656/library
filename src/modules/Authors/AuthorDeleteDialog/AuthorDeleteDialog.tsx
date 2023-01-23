@@ -4,6 +4,7 @@ import {
     Group,
     Modal,
     Text,
+    Tooltip,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { IconTrash } from '@tabler/icons'
@@ -20,6 +21,7 @@ import type { AuthorDeleteDialogProps } from './AuthorDeleteDialog.types'
 export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
     const {
         author,
+        disabled,
         onSubmit,
     } = props
 
@@ -58,18 +60,27 @@ export const AuthorDeleteDialog = (props: AuthorDeleteDialogProps) => {
     }
 
     const onOpen = () => {
+        if (disabled) {
+            return
+        }
+
         setIsOpen(true)
     }
 
     return (
         <>
-            <ActionIcon
-                color="blue"
-                onClick={onOpen}
-                variant="light"
+            <Tooltip
+                disabled={!disabled}
+                label="Can't delete an author with books"
             >
-                <IconTrash size={DEFAULT_ICON_SIZE} />
-            </ActionIcon>
+                <ActionIcon
+                    color="blue"
+                    onClick={onOpen}
+                    variant="light"
+                >
+                    <IconTrash size={DEFAULT_ICON_SIZE} />
+                </ActionIcon>
+            </Tooltip>
             <Modal
                 onClose={onClose}
                 opened={isOpen}
