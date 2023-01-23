@@ -6,4 +6,5 @@ export type MemberType = {
     lastName: string
     memberSince: string
     phoneNumber: string
+    hasBorrowedBooks: boolean
 }

@@ -27,7 +27,7 @@ export const Members = () => {
     const fetchMembers = () => {
         void supabase
             .from(TABLES.members)
-            .select('*')
+            .select('*, books(*)')
             .order('firstName')
             .then((response) => {
                 if (response.error) {
@@ -42,7 +42,14 @@ export const Members = () => {
                     return
                 }
 
-                setMembers(response.data)
+                const members = response.data.map((member) => {
+                    return {
+                        ...member,
+                        hasBorrowedBooks: Boolean(member.books)
+                    }
+                })
+
+                setMembers(members)
             })
     }
 
@@ -102,6 +109,7 @@ export const Members = () => {
                                     <MemberDeleteDialog
                                         member={member}
                                         onSubmit={fetchMembers}
+                                        disabled={member.hasBorrowedBooks}
                                     />
                                 </Group>
                             </Group>

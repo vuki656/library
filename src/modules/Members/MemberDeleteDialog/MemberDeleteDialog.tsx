@@ -4,6 +4,7 @@ import {
     Group,
     Modal,
     Text,
+    Tooltip,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { IconTrash } from '@tabler/icons'
@@ -21,6 +22,7 @@ export const MemberDeleteDialog = (props: MemberDeleteDialogProps) => {
     const {
         member,
         onSubmit,
+        disabled,
     } = props
 
     const [isOpen, setIsOpen] = useState(false)
@@ -58,18 +60,24 @@ export const MemberDeleteDialog = (props: MemberDeleteDialogProps) => {
     }
 
     const onOpen = () => {
+        if (disabled) {
+            return
+        }
+
         setIsOpen(true)
     }
 
     return (
         <>
-            <ActionIcon
-                color="blue"
-                onClick={onOpen}
-                variant="light"
-            >
-                <IconTrash size={DEFAULT_ICON_SIZE} />
-            </ActionIcon>
+            <Tooltip label="Can't delete member that has unreturned books" disabled={!disabled}>
+                <ActionIcon
+                    color="blue"
+                    onClick={onOpen}
+                    variant="light"
+                >
+                    <IconTrash size={DEFAULT_ICON_SIZE} />
+                </ActionIcon>
+            </Tooltip>
             <Modal
                 onClose={onClose}
                 opened={isOpen}
