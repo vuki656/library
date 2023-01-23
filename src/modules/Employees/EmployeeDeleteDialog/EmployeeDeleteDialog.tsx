@@ -37,8 +37,6 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                         message: 'Error deleting employee',
                         title: 'Error',
                     })
-
-                    return
                 }
             })
             .then(async () => {

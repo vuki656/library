@@ -7,7 +7,7 @@ import {
     Stack,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconBookUpload } from '@tabler/icons'
+import { IconBookDownload } from '@tabler/icons'
 import {
     useEffect,
     useState,
@@ -29,13 +29,12 @@ import {
     TABLES,
 } from '../../shared/utils'
 
-import type { BorrowBookFormValueType } from './BorrowBookDialog.types'
-import { borrowBookValidation } from './BorrowBookDialog.validation'
+import type { ReturnBookFormValueType } from './ReturnBookDialog.types'
+import { returnBookValidation } from './ReturnBookDialog.validation'
 
-export const BorrowBookDialog = () => {
+export const ReturnBookDialog = () => {
     const [isOpen, setIsOpen] = useState(false)
 
-    const [members, setMembers] = useState<MemberType[]>([])
     const [books, setBooks] = useState<BookType[]>([])
 
     const fetchBooks = () => {
@@ -66,45 +65,22 @@ export const BorrowBookDialog = () => {
             })
     }
 
-    const fetchMembers = () => {
-        void supabase
-            .from(TABLES.members)
-            .select('*')
-            .order('firstName')
-            .then((response) => {
-                if (response.error) {
-                    console.error(response.error)
-
-                    showNotification({
-                        color: 'red',
-                        message: 'Error fetching members',
-                        title: 'Error',
-                    })
-
-                    return
-                }
-
-                setMembers(response.data)
-            })
-    }
-
     const {
         control,
         handleSubmit,
-    } = useForm<BorrowBookFormValueType>({
-        resolver: zodResolver(borrowBookValidation),
+    } = useForm<ReturnBookFormValueType>({
+        resolver: zodResolver(returnBookValidation),
     })
 
     useEffect(() => {
-        fetchMembers()
         fetchBooks()
     }, [isOpen])
 
-    const onSubmit = (formValue: BorrowBookFormValueType) => {
+    const onSubmit = (formValue: ReturnBookFormValueType) => {
         void supabase
             .from(TABLES.books)
             .update({
-                borrowedByMemberFk: formValue.memberId,
+                borrowedByMemberFk: null,
             })
             .eq('id', formValue.bookId)
             .then((response) => {
@@ -113,7 +89,7 @@ export const BorrowBookDialog = () => {
 
                     showNotification({
                         color: 'red',
-                        message: 'Error borrowing book',
+                        message: 'Error returning book',
                         title: 'Error',
                     })
 
@@ -121,12 +97,6 @@ export const BorrowBookDialog = () => {
                 }
 
                 setIsOpen(false)
-
-                showNotification({
-                    color: 'green',
-                    message: 'Book borrowed successfully',
-                    title: 'Success',
-                })
             })
     }
 
@@ -138,19 +108,30 @@ export const BorrowBookDialog = () => {
         setIsOpen(true)
     }
 
+    const borrowedBooks = books.reduce<BookType[]>((accumulator, book) => {
+        if (!book.borrowedBy) {
+            return accumulator
+        }
+
+        return [
+            ...accumulator,
+            book,
+        ]
+    }, [])
+
     return (
         <>
             <Button
-                leftIcon={<IconBookUpload size={DEFAULT_ICON_SIZE} />}
+                leftIcon={<IconBookDownload size={DEFAULT_ICON_SIZE} />}
                 onClick={onOpen}
                 variant="default"
             >
-                Borrow Book
+                Return Book
             </Button>
             <Modal
                 onClose={onClose}
                 opened={isOpen}
-                title="Borrow Book"
+                title="Return Book"
             >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack>
@@ -161,9 +142,8 @@ export const BorrowBookDialog = () => {
                                 return (
                                     <Select
                                         clearable={true}
-                                        data={books.map((book) => {
+                                        data={borrowedBooks.map((book) => {
                                             return {
-                                                disabled: Boolean(book.borrowedBy),
                                                 label: book.name,
                                                 value: book.id,
                                             }
@@ -176,31 +156,6 @@ export const BorrowBookDialog = () => {
                                         searchable={true}
                                         value={controller.field.value}
                                         {...extractFormFieldErrors(controller.formState.errors.bookId)}
-                                    />
-                                )
-                            }}
-                        />
-                        <Controller
-                            control={control}
-                            name="memberId"
-                            render={(controller) => {
-                                return (
-                                    <Select
-                                        clearable={true}
-                                        data={members.map((member) => {
-                                            return {
-                                                label: `${member.firstName} ${member.lastName}`,
-                                                value: member.id,
-                                            }
-                                        })}
-                                        label="Member"
-                                        onChange={(bookId) => {
-                                            controller.field.onChange(bookId)
-                                        }}
-                                        placeholder="Select a member"
-                                        searchable={true}
-                                        value={controller.field.value}
-                                        {...extractFormFieldErrors(controller.formState.errors.memberId)}
                                     />
                                 )
                             }}
@@ -225,3 +180,4 @@ export const BorrowBookDialog = () => {
         </>
     )
 }
+

@@ -25,6 +25,7 @@ import {
     TABLES,
 } from '../../shared/utils'
 import { BorrowBookDialog } from '../BorrowBookDialog'
+import { ReturnBookDialog } from '../ReturnBookDialog'
 import { SidebarButton } from '../SidebarButton'
 
 export const Sidebar = () => {
@@ -94,7 +95,10 @@ export const Sidebar = () => {
                             marginBottom: theme.spacing.sm,
                         })}
                     />
-                    <BorrowBookDialog />
+                    <Stack>
+                        <BorrowBookDialog />
+                        <ReturnBookDialog />
+                    </Stack>
                     <Divider
                         sx={(theme) => ({
                             marginBottom: theme.spacing.md,
