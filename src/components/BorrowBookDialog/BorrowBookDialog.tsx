@@ -33,7 +33,7 @@ import type { BorrowBookFormValueType } from './BorrowBookDialog.types'
 import { borrowBookValidation } from './BorrowBookDialog.validation'
 
 export const BorrowBookDialog = () => {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     const [members, setMembers] = useState<MemberType[]>([])
     const [books, setBooks] = useState<BookType[]>([])
@@ -98,7 +98,7 @@ export const BorrowBookDialog = () => {
     useEffect(() => {
         fetchMembers()
         fetchBooks()
-    }, [])
+    }, [isOpen])
 
     const onSubmit = (formValue: BorrowBookFormValueType) => {
         void supabase
@@ -119,6 +119,8 @@ export const BorrowBookDialog = () => {
 
                     return
                 }
+
+                setIsOpen(false)
 
                 showNotification({
                     color: 'green',

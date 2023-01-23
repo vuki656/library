@@ -3,19 +3,27 @@ import {
     Paper,
     Stack,
     Text,
+    ThemeIcon,
     Title,
+    Tooltip,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
+import {
+    IconCheck,
+    IconX,
+} from '@tabler/icons'
 import {
     useEffect,
     useState,
 } from 'react'
 
+import { DEFAULT_ICON_SIZE } from '../../shared/constants'
 import {
     supabase,
     TABLES,
 } from '../../shared/utils'
 import type { AuthorType } from '../Authors'
+import type { MemberType } from '../Members'
 
 import { BookCreateDialog } from './BookCreateDialog'
 import { BookDeleteDialog } from './BookDeleteDialog'
@@ -28,7 +36,7 @@ export const Books = () => {
     const fetchBooks = () => {
         void supabase
             .from(TABLES.books)
-            .select('*, author:authors(*)')
+            .select('*, author:authors(*), member:members(*)')
             .order('name')
             .then((response) => {
                 if (response.error) {
@@ -46,6 +54,7 @@ export const Books = () => {
                 setBooks(response.data.map((book) => {
                     return {
                         author: book.author as AuthorType,
+                        borrowedBy: book.member as MemberType,
                         id: book.id,
                         name: book.name,
                         pageCount: book.pageCount,
@@ -97,6 +106,25 @@ export const Books = () => {
                                 })}
                             >
                                 <Group>
+                                    {book.borrowedBy ? (
+                                        <Tooltip label="Not Available">
+                                            <ThemeIcon
+                                                color="red"
+                                                variant="light"
+                                            >
+                                                <IconX size={DEFAULT_ICON_SIZE} />
+                                            </ThemeIcon>
+                                        </Tooltip>
+                                    ) : (
+                                        <Tooltip label="Available">
+                                            <ThemeIcon
+                                                color="green"
+                                                variant="light"
+                                            >
+                                                <IconCheck size={DEFAULT_ICON_SIZE} />
+                                            </ThemeIcon>
+                                        </Tooltip>
+                                    )}
                                     <Text>
                                         {book.name}
                                     </Text>
