@@ -1,6 +1,8 @@
+import type { BookType } from '../Books'
+
 export type AuthorType = {
+    books?: BookType[]
     firstName: string
-    hasBooks: boolean
     id: string
     lastName: string
 }

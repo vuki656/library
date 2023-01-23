@@ -15,6 +15,7 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
+import type { BookType } from '../Books'
 
 import { MemberCreateDialog } from './MemberCreateDialog'
 import { MemberDeleteDialog } from './MemberDeleteDialog'
@@ -43,9 +44,11 @@ export const Members = () => {
                 }
 
                 const mappedMembers = response.data.map((member) => {
+                    const books = member.books as BookType[]
+
                     return {
                         ...member,
-                        hasBorrowedBooks: Boolean(member.books),
+                        hasBorrowedBooks: Boolean(books.length),
                     }
                 })
 

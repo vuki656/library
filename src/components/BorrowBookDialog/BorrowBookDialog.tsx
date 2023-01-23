@@ -56,13 +56,15 @@ export const BorrowBookDialog = () => {
                     return
                 }
 
-                setBooks(response.data.map((book) => {
+                const mappedBooks = response.data.map((book) => {
                     return {
                         ...book,
                         author: book.author as AuthorType,
                         borrowedBy: book.member as MemberType | null,
                     }
-                }))
+                })
+
+                setBooks(mappedBooks)
             })
     }
 

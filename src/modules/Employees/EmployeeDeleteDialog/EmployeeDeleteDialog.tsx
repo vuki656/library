@@ -3,6 +3,7 @@ import {
     Button,
     Group,
     Modal,
+    Stack,
     Text,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
@@ -88,29 +89,31 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                 opened={isOpen}
                 title="Confirm Deletion"
             >
-                <Text>
-                    Are you sure you want to delete
-                    {' '}
-                    <strong>
-                        {`${employee.firstName} ${employee.lastName}`}
-                    </strong>
-                    {' '}
-                    ?
-                </Text>
-                <Group position="right">
-                    <Button
-                        onClick={onClose}
-                        variant="default"
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        color="red"
-                        onClick={onDelete}
-                    >
-                        Confirm
-                    </Button>
-                </Group>
+                <Stack>
+                    <Text>
+                        Are you sure you want to delete
+                        {' '}
+                        <strong>
+                            {`${employee.firstName} ${employee.lastName}`}
+                        </strong>
+                        {' '}
+                        ?
+                    </Text>
+                    <Group position="right">
+                        <Button
+                            onClick={onClose}
+                            variant="default"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="red"
+                            onClick={onDelete}
+                        >
+                            Confirm
+                        </Button>
+                    </Group>
+                </Stack>
             </Modal>
         </>
     )

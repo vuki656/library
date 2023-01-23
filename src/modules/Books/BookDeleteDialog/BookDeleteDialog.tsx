@@ -3,6 +3,7 @@ import {
     Button,
     Group,
     Modal,
+    Stack,
     Text,
     Tooltip,
 } from '@mantine/core'
@@ -86,29 +87,31 @@ export const BookDeleteDialog = (props: BookDeleteDialogProps) => {
                 opened={isOpen}
                 title="Confirm Deletion"
             >
-                <Text>
-                    Are you sure you want to delete
-                    {' '}
-                    <strong>
-                        {`${book.name}`}
-                    </strong>
-                    {' '}
-                    ?
-                </Text>
-                <Group position="right">
-                    <Button
-                        onClick={onClose}
-                        variant="default"
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        color="red"
-                        onClick={onDelete}
-                    >
-                        Confirm
-                    </Button>
-                </Group>
+                <Stack>
+                    <Text>
+                        Are you sure you want to delete
+                        {' '}
+                        <strong>
+                            {`${book.name}`}
+                        </strong>
+                        {' '}
+                        ?
+                    </Text>
+                    <Group position="right">
+                        <Button
+                            onClick={onClose}
+                            variant="default"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="red"
+                            onClick={onDelete}
+                        >
+                            Confirm
+                        </Button>
+                    </Group>
+                </Stack>
             </Modal>
         </>
     )

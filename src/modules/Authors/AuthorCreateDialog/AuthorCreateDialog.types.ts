@@ -1,8 +1,8 @@
 import type { z } from 'zod'
 
-import type { authorValidation } from './AuthorCreateDialog.validation'
+import type { authorCreateValidation } from './AuthorCreateDialog.validation'
 
-export type AuthorCreateDialogFormValueType = z.infer<typeof authorValidation>
+export type AuthorCreateDialogFormValueType = z.infer<typeof authorCreateValidation>
 
 export type AuthorCreateDialogProps = {
     onSubmit(): void

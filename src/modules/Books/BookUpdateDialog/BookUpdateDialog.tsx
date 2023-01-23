@@ -56,7 +56,7 @@ export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
             id: book.id,
             name: book.name,
             pagesCount: book.pageCount,
-            releaseDate: book.releaseDate,
+            releaseDate: new Date(book.releaseDate),
         },
     })
 
