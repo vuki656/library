@@ -30,7 +30,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
             .from(TABLES.employees)
             .delete()
             .eq('id', employee.id)
-            .then(async (response) => {
+            .then((response) => {
                 if (response.error) {
                     showNotification({
                         color: 'red',
@@ -40,11 +40,12 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
 
                     return
                 }
-
+            })
+            .then(async () => {
                 await supabase
                     .auth
                     .admin
-                    .deleteUser(employee.id)
+                    .deleteUser(employee.id) // eslint-disable-next-line promise/no-nesting
                     .catch((error: unknown) => {
                         console.error(error)
 
