@@ -54,7 +54,7 @@ export const Books = () => {
                 setBooks(response.data.map((book) => {
                     return {
                         author: book.author as AuthorType,
-                        borrowedBy: book.member as MemberType,
+                        borrowedBy: book.member as MemberType | null,
                         id: book.id,
                         name: book.name,
                         pageCount: book.pageCount,

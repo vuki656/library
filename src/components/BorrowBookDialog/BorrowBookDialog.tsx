@@ -60,7 +60,7 @@ export const BorrowBookDialog = () => {
                     return {
                         ...book,
                         author: book.author as AuthorType,
-                        borrowedBy: book.member as MemberType,
+                        borrowedBy: book.member as MemberType | null,
                     }
                 }))
             })
