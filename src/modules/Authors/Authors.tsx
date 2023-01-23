@@ -15,7 +15,6 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
-import { BookType } from '../Books'
 
 import { AuthorCreateDialog } from './AuthorCreateDialog'
 import { AuthorDeleteDialog } from './AuthorDeleteDialog'
@@ -43,14 +42,14 @@ export const Authors = () => {
                     return
                 }
 
-                const authors = response.data.map((author) => {
+                const mappedAuthors = response.data.map((author) => {
                     return {
                         ...author,
-                        hasBooks: Boolean(author.books) 
+                        hasBooks: Boolean(author.books),
                     }
                 })
 
-                setAuthors(authors)
+                setAuthors(mappedAuthors)
             })
     }
 
@@ -107,8 +106,8 @@ export const Authors = () => {
                                     />
                                     <AuthorDeleteDialog
                                         author={author}
-                                        onSubmit={fetchAuthors}
                                         disabled={author.hasBooks}
+                                        onSubmit={fetchAuthors}
                                     />
                                 </Group>
                             </Group>

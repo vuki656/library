@@ -42,14 +42,14 @@ export const Members = () => {
                     return
                 }
 
-                const members = response.data.map((member) => {
+                const mappedMembers = response.data.map((member) => {
                     return {
                         ...member,
-                        hasBorrowedBooks: Boolean(member.books)
+                        hasBorrowedBooks: Boolean(member.books),
                     }
                 })
 
-                setMembers(members)
+                setMembers(mappedMembers)
             })
     }
 
@@ -107,9 +107,9 @@ export const Members = () => {
                                         onSubmit={fetchMembers}
                                     />
                                     <MemberDeleteDialog
+                                        disabled={member.hasBorrowedBooks}
                                         member={member}
                                         onSubmit={fetchMembers}
-                                        disabled={member.hasBorrowedBooks}
                                     />
                                 </Group>
                             </Group>

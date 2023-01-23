@@ -20,9 +20,9 @@ import type { MemberDeleteDialogProps } from './MemberDeleteDialog.types'
 
 export const MemberDeleteDialog = (props: MemberDeleteDialogProps) => {
     const {
+        disabled,
         member,
         onSubmit,
-        disabled,
     } = props
 
     const [isOpen, setIsOpen] = useState(false)
@@ -69,7 +69,10 @@ export const MemberDeleteDialog = (props: MemberDeleteDialogProps) => {
 
     return (
         <>
-            <Tooltip label="Can't delete member that has unreturned books" disabled={!disabled}>
+            <Tooltip
+                disabled={!disabled}
+                label="Can't delete member that has unreturned books"
+            >
                 <ActionIcon
                     color="blue"
                     onClick={onOpen}

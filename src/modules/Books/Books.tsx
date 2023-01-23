@@ -136,8 +136,8 @@ export const Books = () => {
                                     />
                                     <BookDeleteDialog
                                         book={book}
-                                        onSubmit={fetchBooks}
                                         disabled={Boolean(book.borrowedBy)}
+                                        onSubmit={fetchBooks}
                                     />
                                 </Group>
                             </Group>
