@@ -9,7 +9,7 @@ import {
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { showNotification } from '@mantine/notifications'
-import { IconPencil } from '@tabler/icons'
+import { IconPencil } from '@tabler/icons-react'
 import dayjs from 'dayjs'
 import {
     useEffect,

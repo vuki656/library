@@ -6,7 +6,7 @@ import {
     TextInput,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconPlus } from '@tabler/icons'
+import { IconPlus } from '@tabler/icons-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 

@@ -7,7 +7,7 @@ import {
     Stack,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconBookDownload } from '@tabler/icons'
+import { IconBookDownload } from '@tabler/icons-react'
 import {
     useEffect,
     useState,

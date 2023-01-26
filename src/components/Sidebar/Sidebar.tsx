@@ -10,7 +10,7 @@ import {
     IconBook,
     IconLogout,
     IconUsers,
-} from '@tabler/icons'
+} from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {

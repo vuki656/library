@@ -7,7 +7,7 @@ import {
     Text,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconTrash } from '@tabler/icons'
+import { IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { DEFAULT_ICON_SIZE } from '../../../shared/constants'

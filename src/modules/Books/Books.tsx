@@ -11,7 +11,7 @@ import { showNotification } from '@mantine/notifications'
 import {
     IconCheck,
     IconX,
-} from '@tabler/icons'
+} from '@tabler/icons-react'
 import {
     useEffect,
     useState,
