@@ -28,7 +28,22 @@ export const Authors = () => {
     const fetchAuthors = () => {
         void supabase
             .from(TABLES.authors)
-            .select('*, books(*)')
+            .select(`
+                id,
+                firstName,
+                lastName,
+                books (
+                    id,
+                    name,
+                    pageCount,
+                    releaseDate,
+                    author (
+                        id,
+                        firstName,
+                        lastName
+                    )
+                )
+            `)
             .order('firstName')
             .then((response) => {
                 if (response.error) {
@@ -43,10 +58,12 @@ export const Authors = () => {
                     return
                 }
 
-                const mappedAuthors = response.data.map((author) => {
+                const mappedAuthors: AuthorType[] = response.data.map((author) => {
                     return {
-                        ...author, // @ts-expect-error
                         books: author.books as BookType[],
+                        firstName: author.firstName,
+                        id: author.id,
+                        lastName: author.lastName,
                     }
                 })
 

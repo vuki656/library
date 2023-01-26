@@ -112,7 +112,16 @@ export const BookUpdateDialog = (props: BookUpdateDialogProps) => {
                     return
                 }
 
-                setAuthors(response.data)
+                const mappedAuthors: AuthorType[] = response.data.map((author) => {
+                    return {
+                        books: null,
+                        firstName: author.firstName,
+                        id: author.id,
+                        lastName: author.lastName,
+                    }
+                })
+
+                setAuthors(mappedAuthors)
             })
     }
 

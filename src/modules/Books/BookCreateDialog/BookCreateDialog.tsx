@@ -26,6 +26,7 @@ import {
     TABLES,
 } from '../../../shared/utils'
 import type { AuthorType } from '../../Authors'
+import type { BookType } from '../Books.types'
 
 import type {
     BookCreateDialogProps,
@@ -57,7 +58,22 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
     const fetchAuthors = () => {
         void supabase
             .from(TABLES.authors)
-            .select('*')
+            .select(`
+                id,
+                firstName,
+                lastName,
+                books (
+                    id,
+                    name,
+                    pageCount,
+                    releaseDate,
+                    author (
+                        id,
+                        firstName,
+                        lastName
+                    )
+                )
+            `)
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
@@ -71,7 +87,16 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
                     return
                 }
 
-                setAuthors(response.data)
+                const mappedAuthors: AuthorType[] = response.data.map((author) => {
+                    return {
+                        books: author.books as BookType[],
+                        firstName: author.firstName,
+                        id: author.id,
+                        lastName: author.lastName,
+                    }
+                })
+
+                setAuthors(mappedAuthors)
             })
     }
 

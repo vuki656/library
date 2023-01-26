@@ -36,7 +36,22 @@ export const Books = () => {
     const fetchBooks = () => {
         void supabase
             .from(TABLES.books)
-            .select('*, author:authors(*), member:members(*)')
+            .select(`
+                id,
+                name,
+                pageCount,
+                releaseDate,
+                author: authors (
+                    id,
+                    firstName,
+                    lastName
+                ),
+                member: members (
+                    id,
+                    firstName,
+                    lastName
+                )
+            `)
             .order('name')
             .then((response) => {
                 if (response.error) {

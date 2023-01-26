@@ -1,8 +1,10 @@
+import type { BookType } from '../Books'
+
 export type MemberType = {
     address: string
+    borrowedBooks: BookType[]
     email: string
     firstName: string
-    hasBorrowedBooks?: boolean
     id: string
     lastName: string
     memberSince: string

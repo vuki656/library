@@ -71,7 +71,26 @@ export const BorrowBookDialog = () => {
     const fetchMembers = () => {
         void supabase
             .from(TABLES.members)
-            .select('*')
+            .select(`
+                id,
+                firstName,
+                email,
+                lastName,
+                phoneNumber,
+                address,
+                memberSince,
+                borrowedBooks: books (
+                    id,
+                    name,
+                    pageCount,
+                    releaseDate,
+                    author (
+                        id,
+                        firstName,
+                        lastName
+                    )
+                )
+            `)
             .order('firstName')
             .then((response) => {
                 if (response.error) {
@@ -86,7 +105,20 @@ export const BorrowBookDialog = () => {
                     return
                 }
 
-                setMembers(response.data)
+                const mappedMembers: MemberType[] = response.data.map((member) => {
+                    return {
+                        address: member.address,
+                        borrowedBooks: member.borrowedBooks as BookType[],
+                        email: member.email,
+                        firstName: member.firstName,
+                        id: member.id,
+                        lastName: member.lastName,
+                        memberSince: member.memberSince,
+                        phoneNumber: member.phoneNumber,
+                    }
+                })
+
+                setMembers(mappedMembers)
             })
     }
 

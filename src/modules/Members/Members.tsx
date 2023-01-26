@@ -28,7 +28,25 @@ export const Members = () => {
     const fetchMembers = () => {
         void supabase
             .from(TABLES.members)
-            .select('*, books(*)')
+            .select(`
+                id,
+                firstName,
+                lastName,
+                phoneNumber,
+                address,
+                email,
+                memberSince,
+                books (
+                    id,
+                    name,
+                    pageCount,
+                    author (
+                        id,
+                        firstName,
+                        lastName
+                    )
+                )
+            `)
             .order('firstName')
             .then((response) => {
                 if (response.error) {
@@ -43,12 +61,18 @@ export const Members = () => {
                     return
                 }
 
-                const mappedMembers = response.data.map((member) => {
+                const mappedMembers: MemberType[] = response.data.map((member) => {
                     const books = member.books as BookType[]
 
                     return {
-                        ...member,
-                        hasBorrowedBooks: Boolean(books.length),
+                        address: member.address,
+                        borrowedBooks: books,
+                        email: member.email,
+                        firstName: member.firstName,
+                        id: member.id,
+                        lastName: member.lastName,
+                        memberSince: member.memberSince,
+                        phoneNumber: member.phoneNumber,
                     }
                 })
 
@@ -110,7 +134,7 @@ export const Members = () => {
                                         onSubmit={fetchMembers}
                                     />
                                     <MemberDeleteDialog
-                                        disabled={member.hasBorrowedBooks}
+                                        disabled={member.borrowedBooks.length !== 0}
                                         member={member}
                                         onSubmit={fetchMembers}
                                     />
