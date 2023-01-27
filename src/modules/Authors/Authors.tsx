@@ -37,7 +37,7 @@ export const Authors = () => {
                     name,
                     pageCount,
                     releaseDate,
-                    author (
+                    author: authors (
                         id,
                         firstName,
                         lastName

@@ -40,7 +40,26 @@ export const ReturnBookDialog = () => {
     const fetchBooks = () => {
         void supabase
             .from(TABLES.books)
-            .select('*, author:authors(*), member:members(*)')
+            .select(`
+                id,
+                name,
+                pageCount,
+                releaseDate,
+                author: authors (
+                    id,
+                    firstName,
+                    lastName
+                ),
+                borrowedBy: members (
+                    id,
+                    firstName,
+                    lastName,
+                    phoneNumber,
+                    address,
+                    email,
+                    memberSince
+                )
+            `)
             .order('name')
             .then((response) => {
                 if (response.error) {
@@ -55,13 +74,18 @@ export const ReturnBookDialog = () => {
                     return
                 }
 
-                setBooks(response.data.map((book) => {
+                const mappedBooks: BookType[] = response.data.map((book) => {
                     return {
-                        ...book,
                         author: book.author as AuthorType,
-                        borrowedBy: book.member as MemberType | null,
+                        borrowedBy: book.borrowedBy as MemberType,
+                        id: book.id,
+                        name: book.name,
+                        pageCount: book.pageCount,
+                        releaseDate: book.releaseDate,
                     }
-                }))
+                })
+
+                setBooks(mappedBooks)
             })
     }
 
@@ -95,6 +119,12 @@ export const ReturnBookDialog = () => {
 
                     return
                 }
+
+                showNotification({
+                    color: 'green',
+                    message: 'Book returned successfully',
+                    title: 'Success',
+                })
 
                 setIsOpen(false)
             })

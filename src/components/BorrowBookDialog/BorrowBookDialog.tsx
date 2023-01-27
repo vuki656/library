@@ -84,7 +84,7 @@ export const BorrowBookDialog = () => {
                     name,
                     pageCount,
                     releaseDate,
-                    author (
+                    author: authors (
                         id,
                         firstName,
                         lastName

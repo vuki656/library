@@ -2,7 +2,7 @@ import type { BookType } from '../Books'
 
 export type MemberType = {
     address: string
-    borrowedBooks: BookType[]
+    borrowedBooks?: BookType[] | null
     email: string
     firstName: string
     id: string

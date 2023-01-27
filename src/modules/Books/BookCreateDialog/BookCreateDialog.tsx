@@ -67,7 +67,7 @@ export const BookCreateDialog = (props: BookCreateDialogProps) => {
                     name,
                     pageCount,
                     releaseDate,
-                    author (
+                    author: authors (
                         id,
                         firstName,
                         lastName

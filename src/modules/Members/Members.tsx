@@ -36,11 +36,11 @@ export const Members = () => {
                 address,
                 email,
                 memberSince,
-                books (
+                borrowedBooks: books (
                     id,
                     name,
                     pageCount,
-                    author (
+                    author: authors (
                         id,
                         firstName,
                         lastName
@@ -62,11 +62,9 @@ export const Members = () => {
                 }
 
                 const mappedMembers: MemberType[] = response.data.map((member) => {
-                    const books = member.books as BookType[]
-
                     return {
                         address: member.address,
-                        borrowedBooks: books,
+                        borrowedBooks: member.borrowedBooks as BookType[],
                         email: member.email,
                         firstName: member.firstName,
                         id: member.id,
@@ -134,7 +132,7 @@ export const Members = () => {
                                         onSubmit={fetchMembers}
                                     />
                                     <MemberDeleteDialog
-                                        disabled={member.borrowedBooks.length !== 0}
+                                        disabled={member.borrowedBooks?.length !== 0}
                                         member={member}
                                         onSubmit={fetchMembers}
                                     />

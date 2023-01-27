@@ -46,17 +46,19 @@ export const Books = () => {
                     firstName,
                     lastName
                 ),
-                member: members (
+                borrowedBy: members (
                     id,
                     firstName,
-                    lastName
+                    lastName,
+                    phoneNumber,
+                    address,
+                    email,
+                    memberSince
                 )
             `)
             .order('name')
             .then((response) => {
                 if (response.error) {
-                    console.error(response.error)
-
                     showNotification({
                         color: 'red',
                         message: 'Error fetching books',
@@ -69,7 +71,7 @@ export const Books = () => {
                 setBooks(response.data.map((book) => {
                     return {
                         author: book.author as AuthorType,
-                        borrowedBy: book.member as MemberType | null,
+                        borrowedBy: book.borrowedBy as MemberType | null,
                         id: book.id,
                         name: book.name,
                         pageCount: book.pageCount,
