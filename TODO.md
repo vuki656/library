@@ -1,1 +1,0 @@
--   [ ] Delete user from auth - needs some weird permission

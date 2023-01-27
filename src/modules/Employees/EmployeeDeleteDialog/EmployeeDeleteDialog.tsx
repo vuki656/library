@@ -44,7 +44,7 @@ export const EmployeeDeleteDialogDialog = (props: EmployeeDeleteDialogProps) => 
                 await supabase
                     .auth
                     .admin
-                    .deleteUser(employee.id) // eslint-disable-next-line promise/no-nesting
+                    .deleteUser(employee.id)
                     .catch((error: unknown) => {
                         console.error(error)
 

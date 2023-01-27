@@ -40,19 +40,33 @@ export const MemberDeleteDialog = (props: MemberDeleteDialogProps) => {
                         message: 'Error deleting member',
                         title: 'Error',
                     })
-
-                    return
                 }
+            })
+            .then(() => {
+                void supabase
+                    .auth
+                    .admin
+                    .deleteUser(member.id)
+                    .then(() => {
+                        showNotification({
+                            color: 'green',
+                            message: 'member deleted successfully',
+                            title: 'Success',
+                        })
 
-                showNotification({
-                    color: 'green',
-                    message: 'member deleted successfully',
-                    title: 'Success',
-                })
+                        setIsOpen(false)
 
-                setIsOpen(false)
+                        onSubmit()
+                    })
+                    .catch((error: unknown) => {
+                        console.error(error)
 
-                onSubmit()
+                        showNotification({
+                            color: 'red',
+                            message: 'Error deleting member',
+                            title: 'Error',
+                        })
+                    })
             })
     }
 

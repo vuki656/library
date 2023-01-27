@@ -18,6 +18,7 @@ module.exports = {
     ],
     rules: {
         "@next/next/google-font-display": "off",
+        "promise/no-nesting": "off",
         "no-console": [
             "error",
             {
