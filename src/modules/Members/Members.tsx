@@ -46,7 +46,8 @@ export const Members = () => {
                         lastName
                     )
                 )
-            `)
+            `) // TODO: use this troughout the app to type stuff correctly
+            .returns<string[]>()
             .order('firstName')
             .then((response) => {
                 if (response.error) {
