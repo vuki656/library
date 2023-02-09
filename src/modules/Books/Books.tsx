@@ -22,16 +22,14 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
-import type { AuthorType } from '../Authors'
-import type { MemberType } from '../Members'
 
 import { BookCreateDialog } from './BookCreateDialog'
 import { BookDeleteDialog } from './BookDeleteDialog'
-import type { BookType } from './Books.types'
+import type { BookQueryType } from './Books.types'
 import { BookUpdateDialog } from './BookUpdateDialog'
 
 export const Books = () => {
-    const [books, setBooks] = useState<BookType[]>([])
+    const [books, setBooks] = useState<BookQueryType[]>([])
 
     const fetchBooks = () => {
         void supabase
@@ -41,11 +39,6 @@ export const Books = () => {
                 name,
                 pageCount,
                 releaseDate,
-                author: authors (
-                    id,
-                    firstName,
-                    lastName
-                ),
                 borrowedBy: members (
                     id,
                     firstName,
@@ -57,6 +50,7 @@ export const Books = () => {
                 )
             `)
             .order('name')
+            .returns<BookQueryType>()
             .then((response) => {
                 if (response.error) {
                     showNotification({
@@ -68,16 +62,7 @@ export const Books = () => {
                     return
                 }
 
-                setBooks(response.data.map((book) => {
-                    return {
-                        author: book.author as AuthorType,
-                        borrowedBy: book.borrowedBy as MemberType | null,
-                        id: book.id,
-                        name: book.name,
-                        pageCount: book.pageCount,
-                        releaseDate: book.releaseDate,
-                    }
-                }))
+                setBooks(response.data)
             })
     }
 
