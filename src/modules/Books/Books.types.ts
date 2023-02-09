@@ -1,3 +1,4 @@
+import type { AuthorType } from '../Authors'
 import type { MemberType } from '../Members'
 
 export type BookType = {
@@ -8,5 +9,6 @@ export type BookType = {
 }
 
 export type BookQueryType = BookType & {
+    author: AuthorType
     borrowedBy: MemberType | null
 }

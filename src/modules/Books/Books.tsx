@@ -47,6 +47,11 @@ export const Books = () => {
                     address,
                     email,
                     memberSince
+                ),
+                author (
+                    id,
+                    firstName,
+                    lastName
                 )
             `)
             .order('name')
