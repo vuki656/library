@@ -18,7 +18,6 @@ import {
 } from 'react-hook-form'
 
 import type {
-    AuthorType,
     BookType,
     MemberType,
 } from '../../modules'
@@ -41,8 +40,14 @@ export const BorrowBookDialog = () => {
     const fetchBooks = () => {
         void supabase
             .from(TABLES.books)
-            .select('*, author:authors(*), member:members(*)')
+            .select(`
+                id,
+                name,
+                pageCount,
+                releaseDate
+            `)
             .order('name')
+            .is('borrowedByMemberFk', null)
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
@@ -56,15 +61,7 @@ export const BorrowBookDialog = () => {
                     return
                 }
 
-                const mappedBooks = response.data.map((book) => {
-                    return {
-                        ...book,
-                        author: book.author as AuthorType,
-                        borrowedBy: book.member as MemberType | null,
-                    }
-                })
-
-                setBooks(mappedBooks)
+                setBooks(response.data)
             })
     }
 
@@ -78,18 +75,7 @@ export const BorrowBookDialog = () => {
                 lastName,
                 phoneNumber,
                 address,
-                memberSince,
-                borrowedBooks: books (
-                    id,
-                    name,
-                    pageCount,
-                    releaseDate,
-                    author: authors (
-                        id,
-                        firstName,
-                        lastName
-                    )
-                )
+                memberSince
             `)
             .order('firstName')
             .then((response) => {
@@ -105,27 +91,11 @@ export const BorrowBookDialog = () => {
                     return
                 }
 
-                const mappedMembers: MemberType[] = response.data.map((member) => {
-                    return {
-                        address: member.address,
-                        borrowedBooks: member.borrowedBooks as BookType[],
-                        email: member.email,
-                        firstName: member.firstName,
-                        id: member.id,
-                        lastName: member.lastName,
-                        memberSince: member.memberSince,
-                        phoneNumber: member.phoneNumber,
-                    }
-                })
-
-                setMembers(mappedMembers)
+                setMembers(response.data)
             })
     }
 
-    const {
-        control,
-        handleSubmit,
-    } = useForm<BorrowBookFormValueType>({
+    const { control, handleSubmit } = useForm<BorrowBookFormValueType>({
         resolver: zodResolver(borrowBookValidation),
     })
 
@@ -197,15 +167,12 @@ export const BorrowBookDialog = () => {
                                         clearable={true}
                                         data={books.map((book) => {
                                             return {
-                                                disabled: Boolean(book.borrowedBy),
                                                 label: book.name,
                                                 value: book.id,
                                             }
                                         })}
                                         label="Book"
-                                        onChange={(bookId) => {
-                                            controller.field.onChange(bookId)
-                                        }}
+                                        onChange={controller.field.onChange}
                                         placeholder="Select a book"
                                         searchable={true}
                                         value={controller.field.value}
@@ -228,9 +195,7 @@ export const BorrowBookDialog = () => {
                                             }
                                         })}
                                         label="Member"
-                                        onChange={(bookId) => {
-                                            controller.field.onChange(bookId)
-                                        }}
+                                        onChange={controller.field.onChange}
                                         placeholder="Select a member"
                                         searchable={true}
                                         value={controller.field.value}
