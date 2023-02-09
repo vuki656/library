@@ -15,15 +15,14 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
-import type { BookType } from '../Books'
 
 import { MemberCreateDialog } from './MemberCreateDialog'
 import { MemberDeleteDialog } from './MemberDeleteDialog'
-import type { MemberType } from './Members.types'
+import type { MemberQueryData } from './Members.types'
 import { MemberUpdateDialog } from './MemberUpdateDialog'
 
 export const Members = () => {
-    const [members, setMembers] = useState<MemberType[]>([])
+    const [members, setMembers] = useState<MemberQueryData[]>([])
 
     const fetchMembers = () => {
         void supabase
@@ -39,15 +38,10 @@ export const Members = () => {
                 borrowedBooks: books (
                     id,
                     name,
-                    pageCount,
-                    author: authors (
-                        id,
-                        firstName,
-                        lastName
-                    )
+                    pageCount
                 )
-            `) // TODO: use this troughout the app to type stuff correctly
-            .returns<string[]>()
+            `)
+            .returns<MemberQueryData>()
             .order('firstName')
             .then((response) => {
                 if (response.error) {
@@ -62,20 +56,7 @@ export const Members = () => {
                     return
                 }
 
-                const mappedMembers: MemberType[] = response.data.map((member) => {
-                    return {
-                        address: member.address,
-                        borrowedBooks: member.borrowedBooks as BookType[],
-                        email: member.email,
-                        firstName: member.firstName,
-                        id: member.id,
-                        lastName: member.lastName,
-                        memberSince: member.memberSince,
-                        phoneNumber: member.phoneNumber,
-                    }
-                })
-
-                setMembers(mappedMembers)
+                setMembers(response.data)
             })
     }
 
@@ -133,7 +114,7 @@ export const Members = () => {
                                         onSubmit={fetchMembers}
                                     />
                                     <MemberDeleteDialog
-                                        disabled={member.borrowedBooks?.length !== 0}
+                                        disabled={member.borrowedBooks.length !== 0}
                                         member={member}
                                         onSubmit={fetchMembers}
                                     />

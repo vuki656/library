@@ -19,6 +19,7 @@ module.exports = {
     rules: {
         "@next/next/google-font-display": "off",
         "promise/no-nesting": "off",
+        "@rimac-technology/document-todos": "off",
         "no-console": [
             "error",
             {
