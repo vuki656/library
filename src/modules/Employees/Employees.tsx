@@ -19,19 +19,24 @@ import {
 import { EmployeeChangePasswordDialog } from './EmployeeChangePasswordDialog'
 import { EmployeeCreateDialog } from './EmployeeCreateDialog'
 import { EmployeeDeleteDialogDialog } from './EmployeeDeleteDialog'
-import type { EmployeeQueryType } from './Employees.types'
+import type { EmployeeType } from './Employees.types'
 import { EmployeeUpdateDialog } from './EmployeeUpdateDialog'
 
 export const Employees = () => {
-    const [employees, setEmployees] = useState<EmployeeQueryType[]>([])
+    const [employees, setEmployees] = useState<EmployeeType[]>([])
     const [currentEmployeeId, setCurrentEmployeeId] = useState<string | null>(null)
 
     const fetchEmployees = () => {
         void supabase
             .from(TABLES.employees)
-            .select('*')
+            .select(`
+                id
+                firstName
+                lastName
+                email
+            `)
             .order('firstName')
-            .returns<EmployeeQueryType>()
+            .returns<EmployeeType>()
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)

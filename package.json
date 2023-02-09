@@ -6,8 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "eslint './**/*.{js,ts,tsx}' --quiet --cache",
-        "db:generate": "npx supabase gen types typescript --project-id zrafiyrzqgcuvjqplyqt --schema public > ./src/shared/types/supabase.ts"
+        "lint": "eslint './**/*.{js,ts,tsx}' --quiet --cache"
     },
     "dependencies": {
         "@emotion/react": "^11.10.5",

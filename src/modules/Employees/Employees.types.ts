@@ -4,5 +4,3 @@ export type EmployeeType = {
     id: string
     lastName: string
 }
-
-export type EmployeeQueryType = EmployeeType

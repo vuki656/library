@@ -1,3 +1,5 @@
+import type { BookType } from '../Books'
+
 export type MemberType = {
     address: string
     email: string
@@ -9,10 +11,5 @@ export type MemberType = {
 }
 
 export type MemberQueryData = MemberType & {
-    borrowedBooks: {
-        id: string
-        name: string
-        pageCount: number
-        releaseDate: string
-    }[]
+    borrowedBooks: BookType[]
 }
