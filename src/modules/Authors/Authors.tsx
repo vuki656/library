@@ -15,15 +15,14 @@ import {
     supabase,
     TABLES,
 } from '../../shared/utils'
-import type { BookType } from '../Books'
 
 import { AuthorCreateDialog } from './AuthorCreateDialog'
 import { AuthorDeleteDialog } from './AuthorDeleteDialog'
-import type { AuthorType } from './Authors.types'
+import type { AuthorQueryData } from './Authors.types'
 import { AuthorUpdateDialog } from './AuthorUpdateDialog'
 
 export const Authors = () => {
-    const [authors, setAuthors] = useState<AuthorType[]>([])
+    const [authors, setAuthors] = useState<AuthorQueryData[]>([])
 
     const fetchAuthors = () => {
         void supabase
@@ -37,14 +36,10 @@ export const Authors = () => {
                     name,
                     pageCount,
                     releaseDate,
-                    author: authors (
-                        id,
-                        firstName,
-                        lastName
-                    )
                 )
             `)
             .order('firstName')
+            .returns<AuthorQueryData>()
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
@@ -58,16 +53,7 @@ export const Authors = () => {
                     return
                 }
 
-                const mappedAuthors: AuthorType[] = response.data.map((author) => {
-                    return {
-                        books: author.books as BookType[],
-                        firstName: author.firstName,
-                        id: author.id,
-                        lastName: author.lastName,
-                    }
-                })
-
-                setAuthors(mappedAuthors)
+                setAuthors(response.data)
             })
     }
 
@@ -124,7 +110,7 @@ export const Authors = () => {
                                     />
                                     <AuthorDeleteDialog
                                         author={author}
-                                        disabled={Boolean(author.books?.length)}
+                                        disabled={Boolean(author.books.length)}
                                         onSubmit={fetchAuthors}
                                     />
                                 </Group>
