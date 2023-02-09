@@ -35,7 +35,7 @@ export const Authors = () => {
                     id,
                     name,
                     pageCount,
-                    releaseDate,
+                    releaseDate
                 )
             `)
             .order('firstName')

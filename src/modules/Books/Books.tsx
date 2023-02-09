@@ -48,7 +48,7 @@ export const Books = () => {
                     email,
                     memberSince
                 ),
-                author (
+                author: authors (
                     id,
                     firstName,
                     lastName
