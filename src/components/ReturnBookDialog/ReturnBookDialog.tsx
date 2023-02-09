@@ -17,11 +17,7 @@ import {
     useForm,
 } from 'react-hook-form'
 
-import type {
-    AuthorType,
-    BookType,
-    MemberType,
-} from '../../modules'
+import type { BookType } from '../../modules'
 import { DEFAULT_ICON_SIZE } from '../../shared/constants'
 import {
     extractFormFieldErrors,
@@ -44,23 +40,11 @@ export const ReturnBookDialog = () => {
                 id,
                 name,
                 pageCount,
-                releaseDate,
-                author: authors (
-                    id,
-                    firstName,
-                    lastName
-                ),
-                borrowedBy: members (
-                    id,
-                    firstName,
-                    lastName,
-                    phoneNumber,
-                    address,
-                    email,
-                    memberSince
-                )
+                releaseDate
             `)
+            .not('borrowedByMemberFk', 'is', null)
             .order('name')
+            .returns<BookType>()
             .then((response) => {
                 if (response.error) {
                     console.error(response.error)
@@ -74,18 +58,7 @@ export const ReturnBookDialog = () => {
                     return
                 }
 
-                const mappedBooks: BookType[] = response.data.map((book) => {
-                    return {
-                        author: book.author as AuthorType,
-                        borrowedBy: book.borrowedBy as MemberType,
-                        id: book.id,
-                        name: book.name,
-                        pageCount: book.pageCount,
-                        releaseDate: book.releaseDate,
-                    }
-                })
-
-                setBooks(mappedBooks)
+                setBooks(response.data)
             })
     }
 
@@ -138,17 +111,6 @@ export const ReturnBookDialog = () => {
         setIsOpen(true)
     }
 
-    const borrowedBooks = books.reduce<BookType[]>((accumulator, book) => {
-        if (!book.borrowedBy) {
-            return accumulator
-        }
-
-        return [
-            ...accumulator,
-            book,
-        ]
-    }, [])
-
     return (
         <>
             <Button
@@ -172,7 +134,7 @@ export const ReturnBookDialog = () => {
                                 return (
                                     <Select
                                         clearable={true}
-                                        data={borrowedBooks.map((book) => {
+                                        data={books.map((book) => {
                                             return {
                                                 label: book.name,
                                                 value: book.id,
@@ -210,4 +172,3 @@ export const ReturnBookDialog = () => {
         </>
     )
 }
-
