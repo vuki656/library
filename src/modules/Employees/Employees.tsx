@@ -30,9 +30,9 @@ export const Employees = () => {
         void supabase
             .from(TABLES.employees)
             .select(`
-                id
-                firstName
-                lastName
+                id,
+                firstName,
+                lastName,
                 email
             `)
             .order('firstName')
