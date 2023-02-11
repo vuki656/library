@@ -905,22 +905,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@tabler/icons-react@npm:2.2.0"
+"@tabler/icons-react@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@tabler/icons-react@npm:2.3.0"
   dependencies:
-    "@tabler/icons": 2.2.0
+    "@tabler/icons": 2.3.0
     prop-types: ^15.7.2
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0
-  checksum: 9bde60900907f0876a2127b183a67da635ec5e8214897652a8ba114981a653cd0bfa3a0393f7cbee659af536ae7c6e2ffa395355583f2d5ec2e224673559facc
+  checksum: 93bbd1c4034e83d459290c92e65899736358935073a80db3f567fb164d99d116e0b34d0c7131ed66225cdc7916637ba670c1014e9bc1073f5f03906f018ff240
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@tabler/icons@npm:2.2.0"
-  checksum: 8240c3930979304cd6800a70b35efbb40931831f787df4a658ef8c42ded6cc1b001dfb9b15af0d61d074701220e91161918ff1757d3c98f19d120ee39e964753
+"@tabler/icons@npm:2.3.0":
+  version: 2.3.0
+  resolution: "@tabler/icons@npm:2.3.0"
+  checksum: 3899ef54763b5afa5aa586ed46de7af4c75e0864a82eb94c4f737840113bb22122790f57efec48b7870671536d2d4420bc4feb810127774170732b2d41cc1651
   languageName: node
   linkType: hard
 
@@ -2667,9 +2667,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.33.0":
-  version: 8.33.0
-  resolution: "eslint@npm:8.33.0"
+"eslint@npm:^8.34.0":
+  version: 8.34.0
+  resolution: "eslint@npm:8.34.0"
   dependencies:
     "@eslint/eslintrc": ^1.4.1
     "@humanwhocodes/config-array": ^0.11.8
@@ -2712,7 +2712,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 727e63ab8b7acf281442323c5971f6afdd5b656fbcebc4476cf54e35af51b2f180617433fc5e1952f0449ca3f43a905527f9407ea4b8a7ea7562fc9c3f278d4c
+  checksum: 4e13e9eb05ac2248efbb6acae0b2325091235d5c47ba91a4775c7d6760778cbcd358a773ebd42f4629d2ad89e27c02f5d66eb1f737d75d9f5fc411454f83b2e5
   languageName: node
   linkType: hard
 
@@ -3807,12 +3807,12 @@ __metadata:
     "@mantine/notifications": ^5.10.3
     "@rimac-technology/style-guide": ^2.0.3
     "@supabase/supabase-js": ^2.7.1
-    "@tabler/icons-react": ^2.2.0
+    "@tabler/icons-react": ^2.3.0
     "@types/node": 18.13.0
     "@types/react": 18.0.27
     "@types/react-dom": 18.0.10
     dayjs: ^1.11.7
-    eslint: ^8.33.0
+    eslint: ^8.34.0
     next: 13.1.6
     react: 18.2.0
     react-dom: 18.2.0
